@@ -3,42 +3,64 @@
 using UnityEngine;
 using System.Collections;
 using Rewired;
-using System.Collections;
 
 [RequireComponent(typeof(CharacterController))]
 public class Robot : MonoBehaviour
 {
-
     public int playerId = 0; // The Rewired player id of this character
 
+    public AnimationCurve startUpCurve;
     public float moveSpeed = 3.0f;
-    public float bulletSpeed = 15.0f;
-    public GameObject bulletPrefab;
+    public Vector3 drag;
+    public float shootForce = 40;
+    public LayerMask Ground;
+    public float groundDistance = 0.2f;
 
     private Player player; // The Rewired Player
     private CharacterController cc;
     private Vector3 moveVector;
+    private Vector3 rotateVector;
     private Vector3 gravityVector;
+
     private bool fire;
+    private float startUpTime = 0f;
     private Shoot shootComponent;
+    private bool isGrounded = true;
+    private Vector3 totalMoveVector;
+    private Transform groundChecker;
+
     void Awake()
     {
         // Get the Rewired Player object for this player and keep it for the duration of the character's lifetime
         player = ReInput.players.GetPlayer(playerId);
-        Debug.Log("Awake0");
-        // Debug.Log("awake");
+        groundChecker = transform.Find("GroundChecker");
+
         // Get the character controller
         cc = GetComponent<CharacterController>();
+        
         shootComponent = GetComponent<Shoot>();
+        // Get Physics gravity
         gravityVector = Physics.gravity;
     }
 
     void Update()
     {
         GetInput();
-        ProcessInput();
 
-        ApplyGravity();
+        CheckIfGrounded();
+
+        CalculateMovement();
+        CalculateGravity();
+        ApplyRotation();
+        ApplyFire();
+
+        ApplyDrag();
+        ApplyMove();
+    }
+
+    private void CheckIfGrounded()
+    {
+        isGrounded = Physics.CheckSphere(groundChecker.position, groundDistance, Ground, QueryTriggerInteraction.Ignore);
     }
 
     private void GetInput()
@@ -48,33 +70,68 @@ public class Robot : MonoBehaviour
 
         moveVector.x = player.GetAxis("move_horizontal"); // get input by name or action id
         moveVector.z = player.GetAxis("move_vertical");
+
+        rotateVector.x = player.GetAxis("rotate_horizontal");
+        rotateVector.z = player.GetAxis("rotate_vertical");
+
         fire = player.GetButtonDown("fire");
     }
 
-    private void ApplyGravity()
+    private void CalculateGravity()
     {
-        cc.Move(gravityVector * Time.deltaTime);
+        totalMoveVector += gravityVector * Time.deltaTime;
     }
 
-    private void ProcessInput()
+    // Process movement input
+    private void CalculateMovement()
     {
-        // Process movement
-        if (moveVector.x != 0.0f || moveVector.y != 0.0f)
+        // Reset startUpTime if moveVector is zero.
+        if (moveVector.magnitude == 0)
         {
-            cc.Move(moveVector * moveSpeed * Time.deltaTime);
-            Vector3 newDir = Vector3.RotateTowards(transform.forward, moveVector, 0.1f, 0.0f);
-            transform.rotation = Quaternion.LookRotation(newDir);
+            startUpTime = 0;
+        }
+        else
+        {
+            startUpTime += Time.deltaTime;
         }
 
-        // Process fire
+        // Process movement
+        if (moveVector.x != 0.0f || moveVector.z != 0.0f)
+        {
+            totalMoveVector += moveVector * moveSpeed * Time.deltaTime * startUpCurve.Evaluate(startUpTime);
+            // cc.Move(moveVector * moveSpeed * Time.deltaTime * startUpCurve.Evaluate(startUpTime));
+        }
+    }
+ 
+    private void ApplyFire()
+    {
         if (fire)
         {
-            Debug.Log("Fire");
             shootComponent.ShootProjectile();
             CameraShake.instance.shakeDuration = 0.05f;
-            cc.Move(-transform.forward * 0.25f);
-            //   GameObject bullet = (GameObject)Instantiate(bulletPrefab, transform.position + transform.right, transform.rotation);
-            //   bullet.GetComponent<Rigidbody>().AddForce(transform.right * bulletSpeed, ForceMode.VelocityChange);
+            totalMoveVector += -transform.forward * shootForce;
         }
+    }
+    
+    // Process rotation input
+    private void ApplyRotation()
+    {
+        // Check if the right joystick is zero or not
+        if (rotateVector.y != 0.0f || rotateVector.z != 0.0f)
+        {
+            Vector3 newDir = Vector3.RotateTowards(transform.forward, rotateVector, 0.5f, 0.0f);
+            transform.rotation = Quaternion.LookRotation(newDir);
+        }
+    }
+    private void ApplyDrag()
+    {
+        totalMoveVector.x /= 1 + drag.x * Time.deltaTime;
+        totalMoveVector.y /= 1 + drag.y * Time.deltaTime;
+        totalMoveVector.z /= 1 + drag.z * Time.deltaTime;
+    }
+
+    private void ApplyMove()
+    {
+        cc.Move(totalMoveVector * Time.deltaTime);
     }
 }
