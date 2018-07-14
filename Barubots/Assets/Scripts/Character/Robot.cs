@@ -3,14 +3,12 @@
 using UnityEngine;
 using System.Collections;
 using Rewired;
-using System.Collections;
 
 [RequireComponent(typeof(CharacterController))]
 public class Robot : MonoBehaviour
 {
 
     public int playerId = 0; // The Rewired player id of this character
-
 
     public AnimationCurve startUpCurve;
     public float moveSpeed = 3.0f;
@@ -24,6 +22,7 @@ public class Robot : MonoBehaviour
     private Vector3 gravityVector;
     private bool fire;
     private float startUpTime = 0f;
+    private Shoot shootComponent;
 
     void Awake()
     {
@@ -32,7 +31,8 @@ public class Robot : MonoBehaviour
 
         // Get the character controller
         cc = GetComponent<CharacterController>();
-
+        
+        shootComponent = GetComponent<Shoot>();
         // Get Physics gravity
         gravityVector = Physics.gravity;
     }
@@ -91,8 +91,9 @@ public class Robot : MonoBehaviour
         if (fire)
         {
             Debug.Log("Fire");
-            //   GameObject bullet = (GameObject)Instantiate(bulletPrefab, transform.position + transform.right, transform.rotation);
-            //   bullet.GetComponent<Rigidbody>().AddForce(transform.right * bulletSpeed, ForceMode.VelocityChange);
+            shootComponent.ShootProjectile();
+            CameraShake.instance.shakeDuration = 0.05f;
+            cc.Move(-transform.forward * 0.4f);
         }
     }
     
