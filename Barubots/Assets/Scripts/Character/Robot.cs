@@ -18,6 +18,7 @@ public class Robot : MonoBehaviour
     private Player player; // The Rewired Player
     private CharacterController cc;
     private Vector3 moveVector;
+    private Vector3 gravityVector;
     private bool fire;
 
     void Awake()
@@ -28,12 +29,16 @@ public class Robot : MonoBehaviour
         // Debug.Log("awake");
         // Get the character controller
         cc = GetComponent<CharacterController>();
+
+        gravityVector = Physics.gravity;
     }
 
     void Update()
     {
         GetInput();
         ProcessInput();
+
+        ApplyGravity();
     }
 
     private void GetInput()
@@ -42,8 +47,13 @@ public class Robot : MonoBehaviour
         // whether the input is coming from a joystick, the keyboard, mouse, or a custom controller.
 
         moveVector.x = player.GetAxis("move_horizontal"); // get input by name or action id
-        moveVector.y = player.GetAxis("move_vertical");
+        moveVector.z = player.GetAxis("move_vertical");
         fire = player.GetButtonDown("fire");
+    }
+
+    private void ApplyGravity()
+    {
+        cc.Move(gravityVector * Time.deltaTime);
     }
 
     private void ProcessInput()
