@@ -8,7 +8,13 @@ using Rewired;
 [RequireComponent(typeof(CharacterController))]
 public class Robot : MonoBehaviour
 {
-    public int playerId = 0; // The Rewired player id of this character
+    public enum PlayerId {
+        Player0 = 0,
+        Player1 = 1,
+        Player2 = 2,
+        Player3 = 3,
+    }
+    public PlayerId playerId = 0; // The Rewired player id of this character
 
     [Header("Movement")]
     public AnimationCurve acceleration;
@@ -27,6 +33,11 @@ public class Robot : MonoBehaviour
     }
 
     public AnimationCurve slowMotion;
+    public Player Player
+    {
+        get { return player; }
+        set { player = value; }
+    }
 
     private Player player; // The Rewired Player
     private CharacterController cc;
@@ -57,7 +68,7 @@ public class Robot : MonoBehaviour
         damagePercentage = 0;
         slowMotionTimer = 1;
         // Get the Rewired Player object for this player and keep it for the duration of the character's lifetime
-        player = ReInput.players.GetPlayer(playerId);
+        player = ReInput.players.GetPlayer((int)playerId);
         groundChecker = transform.Find("GroundChecker");
 
         // Get the character controller
@@ -216,5 +227,10 @@ public class Robot : MonoBehaviour
     private void DoDamage(float damage)
     {
         damagePercentage += damage;
+    }
+
+    public Vector3 GetPreviousPosition()
+    {
+        return positions.First.Value;
     }
 }

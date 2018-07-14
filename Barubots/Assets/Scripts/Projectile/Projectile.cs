@@ -11,6 +11,9 @@ public class Projectile : MonoBehaviour
     public float damage = 10f;
     public float knockBack = 100f;
 
+    public AnimationCurve slowMotion;
+    private float slowMotionTime;
+
     private float currentLifeTime;
     private bool isActive;
     private Vector3 oldPosition;
@@ -22,6 +25,7 @@ public class Projectile : MonoBehaviour
         // Use this for initialization
     void Awake ()
 	{
+        slowMotionTime = 0;
 	    myCollider = GetComponent<Collider>();
 	    myCollider.enabled = false;
         myRigidbody = GetComponent<Rigidbody>();
@@ -65,10 +69,34 @@ public class Projectile : MonoBehaviour
     {
         if (col.transform.tag == "Player")
         {
-            col.transform.GetComponent<Robot>().GetHit(positions.Last.Value, damage, knockBack);
+            DoKnockBack(col);
+  
 
-            Destroy(gameObject);
+            //Destroy(gameObject);
         }
+    }
+
+    private void DoKnockBack(Collision col)
+    {
+        Robot robot = col.transform.GetComponent<Robot>();
+        robot.GetHit(positions.Last.Value, damage, knockBack);
+        myRigidbody.angularVelocity = Vector3.zero;
+        myRigidbody.velocity = Vector3.zero;
+
+        StartCoroutine(AddForce(robot));
+    }
+
+    IEnumerator AddForce(Robot robot)
+    {
+        yield return new WaitForSeconds(0.15f);
+        myRigidbody.AddForce((positions.First.Value - robot.GetPreviousPosition()).normalized * 100 , ForceMode.Force);
+        //while (true)
+        //{
+        //    myRigidbody.AddForce((positions.First.Value - robot.GetPreviousPosition()).normalized * 10 * slowMotion.Evaluate(slowMotionTime), ForceMode.Force);
+        //    slowMotionTime += Time.deltaTime;   
+        //    Debug.Log(slowMotionTime);
+        //    yield return new WaitForFixedUpdate();
+        //}
     }
 
     void OnCollisionExit(Collision col)

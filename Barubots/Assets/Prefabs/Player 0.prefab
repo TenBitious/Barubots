@@ -233,6 +233,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  chargeMaterial: {fileID: 2100000, guid: 6799476ec417caa45accb16fe8a21fb0, type: 2}
   maxChargeTime: 1
   maxShootPower: 30
 --- !u!114 &114996564377122488
@@ -282,8 +283,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0.36183837
-      value: 0
+      time: 0.15
+      value: -0.05000305
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -291,7 +292,7 @@ MonoBehaviour:
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.59922534
+      time: 0.15009815
       value: 1.0000015
       inSlope: 2
       outSlope: 2
