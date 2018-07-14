@@ -62,6 +62,8 @@ public class Robot : MonoBehaviour
         if (moveVector.x != 0.0f || moveVector.y != 0.0f)
         {
             cc.Move(moveVector * moveSpeed * Time.deltaTime);
+            Vector3 newDir = Vector3.RotateTowards(transform.forward, moveVector, 0.1f, 0.0f);
+            transform.rotation = Quaternion.LookRotation(newDir);
         }
 
         // Process fire
