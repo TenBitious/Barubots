@@ -18,6 +18,7 @@ public class Robot : MonoBehaviour
     private Player player; // The Rewired Player
     private CharacterController cc;
     private Vector3 moveVector;
+    private Vector3 rotateVector;
     private Vector3 gravityVector;
     private bool fire;
 
@@ -25,8 +26,7 @@ public class Robot : MonoBehaviour
     {
         // Get the Rewired Player object for this player and keep it for the duration of the character's lifetime
         player = ReInput.players.GetPlayer(playerId);
-        Debug.Log("Awake0");
-        // Debug.Log("awake");
+     
         // Get the character controller
         cc = GetComponent<CharacterController>();
 
@@ -48,6 +48,10 @@ public class Robot : MonoBehaviour
 
         moveVector.x = player.GetAxis("move_horizontal"); // get input by name or action id
         moveVector.z = player.GetAxis("move_vertical");
+
+        rotateVector.x = player.GetAxis("rotate_horizontal");
+        rotateVector.z = player.GetAxis("rotate_vertical");
+
         fire = player.GetButtonDown("fire");
     }
 
@@ -59,10 +63,14 @@ public class Robot : MonoBehaviour
     private void ProcessInput()
     {
         // Process movement
-        if (moveVector.x != 0.0f || moveVector.y != 0.0f)
+        if (moveVector.x != 0.0f || moveVector.z != 0.0f)
         {
             cc.Move(moveVector * moveSpeed * Time.deltaTime);
-            Vector3 newDir = Vector3.RotateTowards(transform.forward, moveVector, 0.1f, 0.0f);
+        }
+
+        if (rotateVector.y != 0.0f || rotateVector.z != 0.0f)
+        {
+            Vector3 newDir = Vector3.RotateTowards(transform.forward, rotateVector, 0.5f, 0.0f);
             transform.rotation = Quaternion.LookRotation(newDir);
         }
 
