@@ -18,8 +18,7 @@ public class Shoot : MonoBehaviour
     public void ShootProjectile()
     {
         Projectile projectile = Instantiate(ball, (transform.position + transform.forward/4), transform.rotation, transform);
-        Physics.IgnoreCollision(GetComponent<Collider>(), projectile.GetComponent<Collider>());
-        // TODO: De-ignore when we will use pickup instead of Instantiate
+        Physics.IgnoreCollision(projectile.GetComponent<Collider>(), GetComponent<Collider>());
         projectile.Shoot(transform.forward * 10f);
     }
 }

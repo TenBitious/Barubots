@@ -21,7 +21,6 @@ GameObject:
   - component: {fileID: 4549242222503336}
   - component: {fileID: 33672880202935258}
   - component: {fileID: 23706254948378420}
-  - component: {fileID: 65000055682871632}
   - component: {fileID: 114996564377122488}
   - component: {fileID: 143469776047331060}
   - component: {fileID: 114158479602898618}
@@ -57,7 +56,6 @@ GameObject:
   - component: {fileID: 4774704255099920}
   - component: {fileID: 33873740408636116}
   - component: {fileID: 23311701042460690}
-  - component: {fileID: 65989264842097718}
   m_Layer: 0
   m_Name: Nose
   m_TagString: Untagged
@@ -85,7 +83,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1322563004301328}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.4265852, y: 0.63, z: 1.8224039}
+  m_LocalPosition: {x: 0, y: 1.36, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4774704255099920}
@@ -190,30 +188,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1790678167017204}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!65 &65000055682871632
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1322563004301328}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!65 &65989264842097718
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1790678167017204}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &114158479602898618
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -264,7 +238,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   moveSpeed: 100
   drag: {x: 18, y: 0, z: 18}
-  shootForce: 50
+  shootForce: 20
   Ground:
     serializedVersion: 2
     m_Bits: 512
@@ -281,8 +255,8 @@ CharacterController:
   serializedVersion: 2
   m_Height: 1
   m_Radius: 0.5
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
+  m_SlopeLimit: 0
+  m_StepOffset: 0
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}

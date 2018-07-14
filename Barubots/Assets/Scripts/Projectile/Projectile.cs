@@ -5,7 +5,7 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     private Rigidbody myRigidbody;
-
+    private Collider myCollider;
     public ParticleSystem particlePrefab;
     public float lifeTime = 1.0f;
 
@@ -15,12 +15,15 @@ public class Projectile : MonoBehaviour
 	// Use this for initialization
 	void Awake ()
 	{
-	    myRigidbody = GetComponent<Rigidbody>();
+	    myCollider = GetComponent<Collider>();
+	    myCollider.enabled = false;
+        myRigidbody = GetComponent<Rigidbody>();
 	}
 
     public void Shoot(Vector3 force)
     {
         transform.parent = null;
+        myCollider.enabled = true;
         currentLifeTime = lifeTime;
         isActive = true;
         particlePrefab.Play();
