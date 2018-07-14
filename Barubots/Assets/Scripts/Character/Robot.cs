@@ -9,10 +9,13 @@ public class Robot : MonoBehaviour
 {
     public int playerId = 0; // The Rewired player id of this character
 
-    public AnimationCurve startUpCurve;
-    public float moveSpeed = 3.0f;
-    public Vector3 drag;
-    public float shootForce = 40;
+    [Header("Movement")]
+    public AnimationCurve acceleration;
+    public float moveSpeed = 100f;
+    public Vector3 drag = new Vector3(18, 0, 18);
+    public float shootKnockBackDistance = 40;
+
+    [Header("Ground")]
     public LayerMask Ground;
     public float groundDistance = 0.2f;
 
@@ -22,6 +25,7 @@ public class Robot : MonoBehaviour
     private Vector3 rotateVector;
     private Vector3 gravityVector;
 
+    private float damagePercentage;
     private bool fire;
     private float startUpTime = 0f;
     private Shoot shootComponent;
@@ -31,6 +35,7 @@ public class Robot : MonoBehaviour
 
     void Awake()
     {
+        damagePercentage = 0;
         // Get the Rewired Player object for this player and keep it for the duration of the character's lifetime
         player = ReInput.players.GetPlayer(playerId);
         groundChecker = transform.Find("GroundChecker");
@@ -58,11 +63,7 @@ public class Robot : MonoBehaviour
         ApplyMove();
     }
 
-    private void CheckIfGrounded()
-    {
-        isGrounded = Physics.CheckSphere(groundChecker.position, groundDistance, Ground, QueryTriggerInteraction.Ignore);
-    }
-
+    
     private void GetInput()
     {
         // Get the input from the Rewired Player. All controllers that the Player owns will contribute, so it doesn't matter
@@ -75,6 +76,11 @@ public class Robot : MonoBehaviour
         rotateVector.z = player.GetAxis("rotate_vertical");
 
         fire = player.GetButtonDown("fire");
+    }
+
+    private void CheckIfGrounded()
+    {
+        isGrounded = Physics.CheckSphere(groundChecker.position, groundDistance, Ground, QueryTriggerInteraction.Ignore);
     }
 
     private void CalculateGravity()
@@ -98,7 +104,7 @@ public class Robot : MonoBehaviour
         // Process movement
         if (moveVector.x != 0.0f || moveVector.z != 0.0f)
         {
-            totalMoveVector += moveVector * moveSpeed * Time.deltaTime * startUpCurve.Evaluate(startUpTime);
+            totalMoveVector += moveVector * moveSpeed * Time.deltaTime * acceleration.Evaluate(startUpTime);
             // cc.Move(moveVector * moveSpeed * Time.deltaTime * startUpCurve.Evaluate(startUpTime));
         }
     }
@@ -109,7 +115,7 @@ public class Robot : MonoBehaviour
         {
             shootComponent.ShootProjectile();
             CameraShake.instance.shakeDuration = 0.05f;
-            totalMoveVector += -transform.forward * shootForce;
+            totalMoveVector += -transform.forward * shootKnockBackDistance;
         }
     }
     
@@ -133,5 +139,38 @@ public class Robot : MonoBehaviour
     private void ApplyMove()
     {
         cc.Move(totalMoveVector * Time.deltaTime);
+    }
+
+    void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        Rigidbody body = hit.collider.attachedRigidbody;
+        //Debug.Log(hit.transform.name);
+        //if (body == null || body.isKinematic)
+        //    return;
+
+        //if (hit.moveDirection.y < -0.3F)
+        //    return;
+
+        //Vector3 pushDir = new Vector3(hit.moveDirection.x, 0, hit.moveDirection.z);
+        //body.velocity = pushDir * pushPower;
+    }
+
+    private void ApplyForce(Vector3 position, float damage, float knockBack)
+    {
+        Vector3 direction = (transform.position - position).normalized;
+        Vector3 knockBackDistance = knockBack * direction * (1 + damagePercentage / 100);     
+        totalMoveVector += knockBackDistance;
+    }
+
+    public void GetHit(Vector3 position, float damage, float knockBack)
+    {
+        CameraShake.instance.shakeDuration = 0.05f;
+        ApplyForce(position, damage, knockBack);
+        DoDamage(damage);
+    }
+
+    private void DoDamage(float damage)
+    {
+        damagePercentage += damage;
     }
 }

@@ -8,6 +8,8 @@ public class Projectile : MonoBehaviour
     private Collider myCollider;
     public ParticleSystem particlePrefab;
     public float lifeTime = 1.0f;
+    public float damage = 10f;
+    public float knockBack = 100f;
 
     private float currentLifeTime;
     private bool isActive;
@@ -46,7 +48,12 @@ public class Projectile : MonoBehaviour
 
     void OnCollisionEnter(Collision col)
     {
-        Debug.Log("Has collision with: " + col.transform.name);
+        if (col.transform.tag == "Player")
+        {
+            col.transform.GetComponent<Robot>().GetHit(transform.position, damage, knockBack);
+        }
+
+        Destroy(gameObject);
     }
 
     void OnCollisionExit(Collision col)

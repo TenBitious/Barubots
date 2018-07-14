@@ -26,7 +26,7 @@ GameObject:
   - component: {fileID: 114158479602898618}
   m_Layer: 0
   m_Name: Player 0
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -212,20 +212,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerId: 0
-  startUpCurve:
+  acceleration:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: -0.0014953613
+      time: 0
       value: 0
-      inSlope: 5.8132286
-      outSlope: 5.8132286
+      inSlope: 4.8055735
+      outSlope: 4.8055735
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334
-      outWeight: 0.040774703
+      outWeight: 0.075359635
     - serializedVersion: 3
-      time: 0.49949038
+      time: 0.5004883
       value: 1
       inSlope: 0
       outSlope: 0
@@ -238,7 +238,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   moveSpeed: 100
   drag: {x: 18, y: 0, z: 18}
-  shootForce: 20
+  shootKnockBackDistance: 40
   Ground:
     serializedVersion: 2
     m_Bits: 512
