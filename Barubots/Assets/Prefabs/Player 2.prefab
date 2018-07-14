@@ -26,7 +26,7 @@ GameObject:
   - component: {fileID: 143469776047331060}
   - component: {fileID: 114158479602898618}
   m_Layer: 0
-  m_Name: Player
+  m_Name: Player 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -57,7 +57,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1322563004301328}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.5500562, y: 0.83, z: 1.7875109}
+  m_LocalPosition: {x: 1.6058534, y: 0.5800028, z: -3.2292192}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4774704255099920}
@@ -92,7 +92,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 1135587c007099040b174d829fb14b03, type: 2}
+  - {fileID: 2100000, guid: b629c2b8bebb61541a15b5349d1c0f30, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -127,7 +127,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 1135587c007099040b174d829fb14b03, type: 2}
+  - {fileID: 2100000, guid: b629c2b8bebb61541a15b5349d1c0f30, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -208,7 +208,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b3e5ef0bf5abe043ba9b728820d88e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerId: 0
+  playerId: 2
   startUpCurve:
     serializedVersion: 2
     m_Curve:
