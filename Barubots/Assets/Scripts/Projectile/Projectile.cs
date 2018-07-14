@@ -58,6 +58,5 @@ public class Projectile : MonoBehaviour
 
     void OnCollisionExit(Collision col)
     {
-        Debug.Log("Has NO collision with: " + col.transform.name);
     }
 }

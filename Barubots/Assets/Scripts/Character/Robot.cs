@@ -19,6 +19,11 @@ public class Robot : MonoBehaviour
     public LayerMask Ground;
     public float groundDistance = 0.2f;
 
+    public Vector3 TotalMoveVector
+    {
+        get { return totalMoveVector; }
+        set { totalMoveVector = value; }
+    }
     private Player player; // The Rewired Player
     private CharacterController cc;
     private Vector3 moveVector;
@@ -27,6 +32,8 @@ public class Robot : MonoBehaviour
 
     private float damagePercentage;
     private bool fire;
+    private bool fireDown;
+    private bool fireUp;
     private float startUpTime = 0f;
     private Shoot shootComponent;
     private bool isGrounded = true;
@@ -75,7 +82,8 @@ public class Robot : MonoBehaviour
         rotateVector.x = player.GetAxis("rotate_horizontal");
         rotateVector.z = player.GetAxis("rotate_vertical");
 
-        fire = player.GetButtonDown("fire");
+        fireDown = player.GetButtonDown("fire");
+        fireUp = player.GetButtonUp("fire");
     }
 
     private void CheckIfGrounded()
@@ -111,10 +119,12 @@ public class Robot : MonoBehaviour
  
     private void ApplyFire()
     {
-        if (fire)
+        if (fireDown)
         {
-            shootComponent.ShootProjectile();
-            CameraShake.instance.shakeDuration = 0.05f;
+            shootComponent.ShootStart();
+        } else if (fireUp)
+        {
+            shootComponent.ShootRelease();
             totalMoveVector += -transform.forward * shootKnockBackDistance;
         }
     }
