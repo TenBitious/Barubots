@@ -11,6 +11,8 @@ public class Robot : MonoBehaviour
 
     public int playerId = 0; // The Rewired player id of this character
 
+
+    public AnimationCurve startUpCurve;
     public float moveSpeed = 3.0f;
     public float bulletSpeed = 15.0f;
     public GameObject bulletPrefab;
@@ -21,23 +23,27 @@ public class Robot : MonoBehaviour
     private Vector3 rotateVector;
     private Vector3 gravityVector;
     private bool fire;
+    private float startUpTime = 0f;
 
     void Awake()
     {
         // Get the Rewired Player object for this player and keep it for the duration of the character's lifetime
         player = ReInput.players.GetPlayer(playerId);
-     
+
         // Get the character controller
         cc = GetComponent<CharacterController>();
 
+        // Get Physics gravity
         gravityVector = Physics.gravity;
     }
 
     void Update()
     {
         GetInput();
-        ProcessInput();
 
+        ApplyMovement();
+        ApplyRotation();
+        ApplyFire();
         ApplyGravity();
     }
 
@@ -60,26 +66,44 @@ public class Robot : MonoBehaviour
         cc.Move(gravityVector * Time.deltaTime);
     }
 
-    private void ProcessInput()
+    // Process movement input
+    private void ApplyMovement()
     {
+        // Reset startUpTime if moveVector is zero.
+        if (moveVector.magnitude == 0)
+        {
+            startUpTime = 0;
+        }
+        else
+        {
+            startUpTime += Time.deltaTime;
+        }
+
         // Process movement
         if (moveVector.x != 0.0f || moveVector.z != 0.0f)
         {
-            cc.Move(moveVector * moveSpeed * Time.deltaTime);
+            cc.Move(moveVector * moveSpeed * Time.deltaTime * startUpCurve.Evaluate(startUpTime));
         }
-
+    }
+ 
+    private void ApplyFire()
+    {
+        if (fire)
+        {
+            Debug.Log("Fire");
+            //   GameObject bullet = (GameObject)Instantiate(bulletPrefab, transform.position + transform.right, transform.rotation);
+            //   bullet.GetComponent<Rigidbody>().AddForce(transform.right * bulletSpeed, ForceMode.VelocityChange);
+        }
+    }
+    
+    // Process rotation input
+    private void ApplyRotation()
+    {
+        // Check if the right joystick is zero or not
         if (rotateVector.y != 0.0f || rotateVector.z != 0.0f)
         {
             Vector3 newDir = Vector3.RotateTowards(transform.forward, rotateVector, 0.5f, 0.0f);
             transform.rotation = Quaternion.LookRotation(newDir);
-        }
-
-        // Process fire
-        if (fire)
-        {
-            Debug.Log("Fire");
-         //   GameObject bullet = (GameObject)Instantiate(bulletPrefab, transform.position + transform.right, transform.rotation);
-         //   bullet.GetComponent<Rigidbody>().AddForce(transform.right * bulletSpeed, ForceMode.VelocityChange);
         }
     }
 }
