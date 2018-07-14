@@ -5,6 +5,8 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     private Rigidbody myRigidbody;
+    private Collider myCollider;
+    public ParticleSystem particlePrefab;
     public float lifeTime = 1.0f;
 
     private float currentLifeTime;
@@ -13,14 +15,18 @@ public class Projectile : MonoBehaviour
 	// Use this for initialization
 	void Awake ()
 	{
-	    myRigidbody = GetComponent<Rigidbody>();
+	    myCollider = GetComponent<Collider>();
+	    myCollider.enabled = false;
+        myRigidbody = GetComponent<Rigidbody>();
 	}
 
     public void Shoot(Vector3 force)
     {
         transform.parent = null;
+        myCollider.enabled = true;
         currentLifeTime = lifeTime;
         isActive = true;
+        particlePrefab.Play();
         myRigidbody.AddForce(force, ForceMode.Impulse);
     }
 	
@@ -37,4 +43,14 @@ public class Projectile : MonoBehaviour
 
 	    currentLifeTime -= Time.deltaTime;
 	}
+
+    void OnCollisionEnter(Collision col)
+    {
+        Debug.Log("Has collision with: " + col.transform.name);
+    }
+
+    void OnCollisionExit(Collision col)
+    {
+        Debug.Log("Has NO collision with: " + col.transform.name);
+    }
 }
