@@ -21,6 +21,12 @@ public class Robot : MonoBehaviour
         get { return totalMoveVector; }
         set { totalMoveVector = value; }
     }
+    public Player Player
+    {
+        get { return player; }
+        set { player = value; }
+    }
+
     private Player player; // The Rewired Player
     private CharacterController cc;
     private Vector3 moveVector;
