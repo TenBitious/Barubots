@@ -72,7 +72,7 @@ public class Robot : MonoBehaviour
             Debug.Log("Fire");
             shootComponent.ShootProjectile();
             CameraShake.instance.shakeDuration = 0.05f;
-            cc.Move(-transform.forward * 0.4f);
+            cc.Move(-transform.forward * 0.25f);
             //   GameObject bullet = (GameObject)Instantiate(bulletPrefab, transform.position + transform.right, transform.rotation);
             //   bullet.GetComponent<Rigidbody>().AddForce(transform.right * bulletSpeed, ForceMode.VelocityChange);
         }

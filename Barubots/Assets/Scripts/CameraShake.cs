@@ -24,7 +24,7 @@ public class CameraShake : MonoBehaviour
             instance = this;
         //If instance already exists and it's not this:
         else if (instance != this)
-            //Then destroy this. This enforces our singleton pattern, meaning there can only ever be one instance of a GameManager.
+            //Then destroy this. This enforces our singleton pattern, meaning there can only ever be one instance of a CameraShake.
             Destroy(gameObject);
         if (camTransform == null)
         {
