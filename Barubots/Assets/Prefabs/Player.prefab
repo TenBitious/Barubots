@@ -233,9 +233,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  moveSpeed: 3
-  bulletSpeed: 15
-  bulletPrefab: {fileID: 0}
+  moveSpeed: 6
 --- !u!143 &143469776047331060
 CharacterController:
   m_ObjectHideFlags: 1

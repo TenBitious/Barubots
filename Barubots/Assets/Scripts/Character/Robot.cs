@@ -12,8 +12,6 @@ public class Robot : MonoBehaviour
 
     public AnimationCurve startUpCurve;
     public float moveSpeed = 3.0f;
-    public float bulletSpeed = 15.0f;
-    public GameObject bulletPrefab;
 
     private Player player; // The Rewired Player
     private CharacterController cc;
@@ -23,6 +21,7 @@ public class Robot : MonoBehaviour
     private bool fire;
     private float startUpTime = 0f;
     private Shoot shootComponent;
+    private Vector3 totalMoveVector;
 
     void Awake()
     {
@@ -41,10 +40,15 @@ public class Robot : MonoBehaviour
     {
         GetInput();
 
-        ApplyMovement();
+        // Reset total move vector
+        totalMoveVector.Set(0, 0, 0);
+
+        CalculateMovement();
+        CalculateGravity();
         ApplyRotation();
         ApplyFire();
-        ApplyGravity();
+
+        ApplyMove();
     }
 
     private void GetInput()
@@ -61,13 +65,13 @@ public class Robot : MonoBehaviour
         fire = player.GetButtonDown("fire");
     }
 
-    private void ApplyGravity()
+    private void CalculateGravity()
     {
-        cc.Move(gravityVector * Time.deltaTime);
+        totalMoveVector += gravityVector * Time.deltaTime;
     }
 
     // Process movement input
-    private void ApplyMovement()
+    private void CalculateMovement()
     {
         // Reset startUpTime if moveVector is zero.
         if (moveVector.magnitude == 0)
@@ -82,7 +86,8 @@ public class Robot : MonoBehaviour
         // Process movement
         if (moveVector.x != 0.0f || moveVector.z != 0.0f)
         {
-            cc.Move(moveVector * moveSpeed * Time.deltaTime * startUpCurve.Evaluate(startUpTime));
+            totalMoveVector += moveVector * moveSpeed * Time.deltaTime * startUpCurve.Evaluate(startUpTime);
+            //cc.Move(moveVector * moveSpeed * Time.deltaTime * startUpCurve.Evaluate(startUpTime));
         }
     }
  
@@ -90,10 +95,9 @@ public class Robot : MonoBehaviour
     {
         if (fire)
         {
-            Debug.Log("Fire");
             shootComponent.ShootProjectile();
             CameraShake.instance.shakeDuration = 0.05f;
-            cc.Move(-transform.forward * 0.4f);
+            totalMoveVector += -transform.forward * 0.4f;
         }
     }
     
@@ -106,5 +110,10 @@ public class Robot : MonoBehaviour
             Vector3 newDir = Vector3.RotateTowards(transform.forward, rotateVector, 0.5f, 0.0f);
             transform.rotation = Quaternion.LookRotation(newDir);
         }
+    }
+
+    private void ApplyMove()
+    {
+        cc.Move(totalMoveVector);
     }
 }
