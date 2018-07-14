@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 23311701042460690}
   - component: {fileID: 65989264842097718}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Nose
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -215,12 +215,12 @@ MonoBehaviour:
     - serializedVersion: 3
       time: -0.0014953613
       value: 0
-      inSlope: 6.1512485
-      outSlope: 6.1512485
+      inSlope: 5.8132286
+      outSlope: 5.8132286
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334
-      outWeight: 0.079188235
+      outWeight: 0.040774703
     - serializedVersion: 3
       time: 0.49949038
       value: 1
@@ -233,7 +233,9 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  moveSpeed: 6
+  moveSpeed: 100
+  drag: {x: 18, y: 0, z: 18}
+  shootForce: 50
 --- !u!143 &143469776047331060
 CharacterController:
   m_ObjectHideFlags: 1

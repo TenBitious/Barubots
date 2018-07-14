@@ -7,17 +7,19 @@ using Rewired;
 [RequireComponent(typeof(CharacterController))]
 public class Robot : MonoBehaviour
 {
-
     public int playerId = 0; // The Rewired player id of this character
 
     public AnimationCurve startUpCurve;
     public float moveSpeed = 3.0f;
+    public Vector3 drag;
+    public float shootForce = 40;
 
     private Player player; // The Rewired Player
     private CharacterController cc;
     private Vector3 moveVector;
     private Vector3 rotateVector;
     private Vector3 gravityVector;
+
     private bool fire;
     private float startUpTime = 0f;
     private Shoot shootComponent;
@@ -40,14 +42,12 @@ public class Robot : MonoBehaviour
     {
         GetInput();
 
-        // Reset total move vector
-        totalMoveVector.Set(0, 0, 0);
-
         CalculateMovement();
         CalculateGravity();
         ApplyRotation();
         ApplyFire();
 
+        ApplyDrag();
         ApplyMove();
     }
 
@@ -87,7 +87,7 @@ public class Robot : MonoBehaviour
         if (moveVector.x != 0.0f || moveVector.z != 0.0f)
         {
             totalMoveVector += moveVector * moveSpeed * Time.deltaTime * startUpCurve.Evaluate(startUpTime);
-            //cc.Move(moveVector * moveSpeed * Time.deltaTime * startUpCurve.Evaluate(startUpTime));
+            // cc.Move(moveVector * moveSpeed * Time.deltaTime * startUpCurve.Evaluate(startUpTime));
         }
     }
  
@@ -97,7 +97,7 @@ public class Robot : MonoBehaviour
         {
             shootComponent.ShootProjectile();
             CameraShake.instance.shakeDuration = 0.05f;
-            totalMoveVector += -transform.forward * 0.4f;
+            totalMoveVector += -transform.forward * shootForce;
         }
     }
     
@@ -111,9 +111,15 @@ public class Robot : MonoBehaviour
             transform.rotation = Quaternion.LookRotation(newDir);
         }
     }
+    private void ApplyDrag()
+    {
+        totalMoveVector.x /= 1 + drag.x * Time.deltaTime;
+        totalMoveVector.y /= 1 + drag.y * Time.deltaTime;
+        totalMoveVector.z /= 1 + drag.z * Time.deltaTime;
+    }
 
     private void ApplyMove()
     {
-        cc.Move(totalMoveVector);
+        cc.Move(totalMoveVector * Time.deltaTime);
     }
 }
