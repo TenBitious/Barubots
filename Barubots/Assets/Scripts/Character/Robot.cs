@@ -20,7 +20,7 @@ public class Robot : MonoBehaviour
     private Vector3 moveVector;
     private Vector3 gravityVector;
     private bool fire;
-
+    private Shoot shootComponent;
     void Awake()
     {
         // Get the Rewired Player object for this player and keep it for the duration of the character's lifetime
@@ -29,7 +29,7 @@ public class Robot : MonoBehaviour
         // Debug.Log("awake");
         // Get the character controller
         cc = GetComponent<CharacterController>();
-
+        shootComponent = GetComponent<Shoot>();
         gravityVector = Physics.gravity;
     }
 
@@ -70,8 +70,11 @@ public class Robot : MonoBehaviour
         if (fire)
         {
             Debug.Log("Fire");
-         //   GameObject bullet = (GameObject)Instantiate(bulletPrefab, transform.position + transform.right, transform.rotation);
-         //   bullet.GetComponent<Rigidbody>().AddForce(transform.right * bulletSpeed, ForceMode.VelocityChange);
+            shootComponent.ShootProjectile();
+            CameraShake.instance.shakeDuration = 0.05f;
+            cc.Move(-transform.forward * 0.4f);
+            //   GameObject bullet = (GameObject)Instantiate(bulletPrefab, transform.position + transform.right, transform.rotation);
+            //   bullet.GetComponent<Rigidbody>().AddForce(transform.right * bulletSpeed, ForceMode.VelocityChange);
         }
     }
 }
