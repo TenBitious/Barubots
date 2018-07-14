@@ -13,6 +13,8 @@ public class Robot : MonoBehaviour
     public float moveSpeed = 3.0f;
     public Vector3 drag;
     public float shootForce = 40;
+    public LayerMask Ground;
+    public float groundDistance = 0.2f;
 
     private Player player; // The Rewired Player
     private CharacterController cc;
@@ -23,12 +25,15 @@ public class Robot : MonoBehaviour
     private bool fire;
     private float startUpTime = 0f;
     private Shoot shootComponent;
+    private bool isGrounded = true;
     private Vector3 totalMoveVector;
+    private Transform groundChecker;
 
     void Awake()
     {
         // Get the Rewired Player object for this player and keep it for the duration of the character's lifetime
         player = ReInput.players.GetPlayer(playerId);
+        groundChecker = transform.Find("GroundChecker");
 
         // Get the character controller
         cc = GetComponent<CharacterController>();
@@ -42,6 +47,8 @@ public class Robot : MonoBehaviour
     {
         GetInput();
 
+        CheckIfGrounded();
+
         CalculateMovement();
         CalculateGravity();
         ApplyRotation();
@@ -49,6 +56,11 @@ public class Robot : MonoBehaviour
 
         ApplyDrag();
         ApplyMove();
+    }
+
+    private void CheckIfGrounded()
+    {
+        isGrounded = Physics.CheckSphere(groundChecker.position, groundDistance, Ground, QueryTriggerInteraction.Ignore);
     }
 
     private void GetInput()
