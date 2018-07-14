@@ -42,7 +42,7 @@ public class Shoot : MonoBehaviour
         Physics.IgnoreCollision(projectile.GetComponent<Collider>(), GetComponent<Collider>());
         float chargeForce = chargeCurve.Evaluate((Mathf.Clamp(currentChargeTime, 0f, maxChargeTime) / maxChargeTime));
         Debug.Log("chargeForce: " + chargeForce + " / currentChargeTime: " + currentChargeTime);
-        CameraShake.instance.shakeDuration = chargeForce * 0.25f;
+        CameraShake.instance.shakeDuration = chargeForce * 0.05f;
         myRobot.TotalMoveVector += -transform.forward * chargeForce * 20f;
         projectile.Shoot(transform.forward * (maxShootPower * chargeForce));
 

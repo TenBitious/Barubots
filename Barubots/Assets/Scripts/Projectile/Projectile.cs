@@ -13,14 +13,43 @@ public class Projectile : MonoBehaviour
 
     private float currentLifeTime;
     private bool isActive;
+    private Vector3 oldPosition;
 
-	// Use this for initialization
-	void Awake ()
+    private LinkedList<Vector3> positions = new LinkedList<Vector3>();
+    private Vector3 currentPosition; 
+
+
+        // Use this for initialization
+    void Awake ()
 	{
 	    myCollider = GetComponent<Collider>();
 	    myCollider.enabled = false;
         myRigidbody = GetComponent<Rigidbody>();
 	}
+
+    private void FixedUpdate()
+    {
+        currentPosition = transform.position;
+
+        positions.AddLast(transform.position);
+        if (positions.Count > 2)
+        {
+            positions.RemoveFirst();
+        }
+    }
+
+    private void Update()
+    {
+        if (!isActive) return;
+
+        if (currentLifeTime < 0)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        currentLifeTime -= Time.deltaTime;
+    }
 
     public void Shoot(Vector3 force)
     {
@@ -31,29 +60,15 @@ public class Projectile : MonoBehaviour
         particlePrefab.Play();
         myRigidbody.AddForce(force, ForceMode.Impulse);
     }
-	
-	// Update is called once per frame
-	void Update ()
-	{
-	    if (!isActive) return;
-
-	    if (currentLifeTime < 0)
-	    {
-            Destroy(gameObject);
-	        return;
-	    }
-
-	    currentLifeTime -= Time.deltaTime;
-	}
 
     void OnCollisionEnter(Collision col)
     {
         if (col.transform.tag == "Player")
         {
-            col.transform.GetComponent<Robot>().GetHit(transform.position, damage, knockBack);
-        }
+            col.transform.GetComponent<Robot>().GetHit(positions.Last.Value, damage, knockBack);
 
-        Destroy(gameObject);
+            Destroy(gameObject);
+        }
     }
 
     void OnCollisionExit(Collision col)

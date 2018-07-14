@@ -2,6 +2,7 @@
 
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using Rewired;
 
 [RequireComponent(typeof(CharacterController))]
@@ -24,11 +25,16 @@ public class Robot : MonoBehaviour
         get { return totalMoveVector; }
         set { totalMoveVector = value; }
     }
+
+    public AnimationCurve slowMotion;
+
     private Player player; // The Rewired Player
     private CharacterController cc;
     private Vector3 moveVector;
     private Vector3 rotateVector;
     private Vector3 gravityVector;
+
+
 
     private float damagePercentage;
     private bool fire;
@@ -40,9 +46,16 @@ public class Robot : MonoBehaviour
     private Vector3 totalMoveVector;
     private Transform groundChecker;
 
+    private Vector3 currentPosition;
+    private LinkedList<Vector3> positions = new LinkedList<Vector3>();
+
+    private float slowMotionTimer;
+
+
     void Awake()
     {
         damagePercentage = 0;
+        slowMotionTimer = 1;
         // Get the Rewired Player object for this player and keep it for the duration of the character's lifetime
         player = ReInput.players.GetPlayer(playerId);
         groundChecker = transform.Find("GroundChecker");
@@ -55,9 +68,11 @@ public class Robot : MonoBehaviour
         gravityVector = Physics.gravity;
     }
 
-    void Update()
+    void FixedUpdate()
     {
         GetInput();
+
+        UpdateSlowMotionTimer();
 
         CheckIfGrounded();
 
@@ -68,9 +83,26 @@ public class Robot : MonoBehaviour
 
         ApplyDrag();
         ApplyMove();
+
+        UpdatePositions();
     }
 
-    
+    private void UpdatePositions()
+    {
+        currentPosition = transform.position;
+
+        positions.AddLast(transform.position);
+        if (positions.Count > 2)
+        {
+            positions.RemoveFirst();
+        }
+    }
+
+    private void UpdateSlowMotionTimer()
+    {
+        this.slowMotionTimer += Time.deltaTime;
+    }
+
     private void GetInput()
     {
         // Get the input from the Rewired Player. All controllers that the Player owns will contribute, so it doesn't matter
@@ -141,14 +173,14 @@ public class Robot : MonoBehaviour
     }
     private void ApplyDrag()
     {
-        totalMoveVector.x /= 1 + drag.x * Time.deltaTime;
-        totalMoveVector.y /= 1 + drag.y * Time.deltaTime;
-        totalMoveVector.z /= 1 + drag.z * Time.deltaTime;
+        totalMoveVector.x /= 1 + (drag.x * Time.deltaTime) * slowMotion.Evaluate(slowMotionTimer);
+        totalMoveVector.y /= 1 + (drag.y * Time.deltaTime) * slowMotion.Evaluate(slowMotionTimer);
+        totalMoveVector.z /= 1 + (drag.z * Time.deltaTime) * slowMotion.Evaluate(slowMotionTimer);
     }
 
     private void ApplyMove()
     {
-        cc.Move(totalMoveVector * Time.deltaTime);
+        cc.Move(totalMoveVector * Time.deltaTime * slowMotion.Evaluate(slowMotionTimer));
     }
 
     void OnControllerColliderHit(ControllerColliderHit hit)
@@ -167,16 +199,18 @@ public class Robot : MonoBehaviour
 
     private void ApplyForce(Vector3 position, float damage, float knockBack)
     {
-        Vector3 direction = (transform.position - position).normalized;
+        Vector3 direction = (positions.First.Value - position).normalized;
         Vector3 knockBackDistance = knockBack * direction * (1 + damagePercentage / 100);     
         totalMoveVector += knockBackDistance;
     }
 
     public void GetHit(Vector3 position, float damage, float knockBack)
     {
-        CameraShake.instance.shakeDuration = 0.05f;
+        //CameraShake.instance.shakeDuration = 0.3f;
         ApplyForce(position, damage, knockBack);
         DoDamage(damage);
+
+        slowMotionTimer = 0;
     }
 
     private void DoDamage(float damage)
