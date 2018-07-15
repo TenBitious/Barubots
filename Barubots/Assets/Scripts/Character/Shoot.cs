@@ -1,9 +1,20 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[Serializable]
+public struct ChargeInfo
+{
+    public float power;
+    public float knockback;
+    public float chargeTimer;
+    public Color indicatorColor;
+}
+
 public class Shoot : MonoBehaviour
 {
+    public ChargeInfo[] chargeInfo;
     public Projectile ball;
 
     public AnimationCurve chargeCurve;
@@ -14,23 +25,54 @@ public class Shoot : MonoBehaviour
     public float shootKnockBackDistance = 40;
     public float cameraShakeForce = 0.05f;
 
+    private int currentChargeCycle;
     private Robot myRobot;
     private float currentChargeTime;
     private bool isCharging;
+
+    private bool maxCharged;
     // Use this for initialization
     void Start ()
     {
+        currentChargeCycle = 0;
         myRobot = GetComponent<Robot>();
+        SetIndicatorColors();
     }
 
+    void SetIndicatorColors()
+    {
+        Vector4[] colorsAsVector4 = new Vector4[chargeInfo.Length];
+        for (int i = 0; i < chargeInfo.Length; i++)
+        {
+            colorsAsVector4[i] = chargeInfo[i].indicatorColor;
+        }
+        chargeIndicator.SetColors(colorsAsVector4);
+    }
 	// Update is called once per frame
 	void Update () {
 	    if (isCharging)
 	    {
+	        if (maxCharged) return;
+
 	        currentChargeTime += Time.deltaTime;
-	        chargeIndicator.SetValue(currentChargeTime/maxChargeTime);
+	        if (currentChargeTime >= chargeInfo[currentChargeCycle].chargeTimer) GoToNextCycle();
+
+            chargeIndicator.SetValue(currentChargeTime/chargeInfo[currentChargeCycle].chargeTimer);
         }
 	}
+
+    public void GoToNextCycle()
+    {
+        if (currentChargeCycle >= chargeInfo.Length-1)
+        {
+            maxCharged = true;
+            // TODO: Start max charge stuff
+            return;
+        }
+        currentChargeCycle++;
+        currentChargeTime = 0;
+        chargeIndicator.GoTeNextCycle(currentChargeCycle);
+    }
 
     public void ShootStart()
     {
@@ -52,9 +94,11 @@ public class Shoot : MonoBehaviour
         ApplyKnockBack();
 
         // Set default values
-        chargeIndicator.SetValue(0);
         isCharging = false;
+        maxCharged = false;
+        currentChargeCycle = 0;
         currentChargeTime = 0f;
+        chargeIndicator.Reset();
     }
 
     void ApplyKnockBack()

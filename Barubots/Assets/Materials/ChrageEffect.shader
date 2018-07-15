@@ -1,10 +1,10 @@
-﻿Shader "Sprite/ChrageEffect"
+﻿Shader "Sprite/ChargeEffect"
 {
 	Properties {
 		_MainTex("Texture Image", 2D) = "white" {}
-		_Color("Color", Color) = (0,0,0,0)
-		_MinCutofValue("MinCutofValue", Float) = 0.1
+		[PerRendererData]_Color("Color", Color) = (0,0,0,0)
 		[PerRendererData]_AlphaValue("Alpha value", Float) = 0
+		_MinCutofValue("MinCutofValue", Float) = 0.1
 		_ScaleX("Scale X", Float) = 1.0
 		_ScaleY("Scale Y", Float) = 1.0
 	}
@@ -22,6 +22,9 @@
 		uniform float _MinCutofValue;
 		uniform float _ScaleX;
 		uniform float _ScaleY;
+
+		uniform float4 colorIndicators[3];
+		uniform int currentCharge;
 
 		struct vertexInput {
 			float4 vertex : POSITION;
@@ -50,8 +53,16 @@
 		float4 frag(vertexOutput input) : COLOR
 		{
 			float4 texAlpha = tex2D(_MainTex, float2(input.tex.xy));
-			if (texAlpha.r < clamp(_AlphaValue, _MinCutofValue, 1)) discard;
-			return _Color;
+			float4 col = colorIndicators[currentCharge];
+
+			if (texAlpha.r < _MinCutofValue) discard;
+
+			if (texAlpha.r < clamp(_AlphaValue, _MinCutofValue, 1))
+			{
+				if (currentCharge < 1)	discard;
+				else col = colorIndicators[currentCharge - 1];
+			}
+			return col;
 		}
 
 		ENDCG
