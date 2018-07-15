@@ -278,6 +278,41 @@ MonoBehaviour:
   chargeIndicator: {fileID: 114053613952313606}
   maxChargeTime: 1
   maxShootPower: 30
+  knockbackCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.0000011909287
+      value: 0.30043587
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.7312263
+      value: 0.37873173
+      inSlope: 0.42460898
+      outSlope: 0.42460898
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 3.622825
+      outSlope: 3.622825
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.07713437
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  shootKnockBackDistance: 50
+  cameraShakeForce: 0.05
 --- !u!114 &114996564377122488
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -316,7 +351,6 @@ MonoBehaviour:
     m_RotationOrder: 4
   moveSpeed: 100
   drag: {x: 18, y: 0, z: 18}
-  shootKnockBackDistance: 40
   Ground:
     serializedVersion: 2
     m_Bits: 512
