@@ -7,7 +7,7 @@ public class Shoot : MonoBehaviour
     public Projectile ball;
 
     public AnimationCurve chargeCurve;
-    public Material chargeMaterial;
+    public ChargeIndicator chargeIndicator;
     public float maxChargeTime;
     public float maxShootPower = 30f;
 
@@ -25,7 +25,7 @@ public class Shoot : MonoBehaviour
 	    if (isCharging)
 	    {
 	        currentChargeTime += Time.deltaTime;
-	        chargeMaterial.SetFloat("_AlphaValue", 1 - (currentChargeTime/maxChargeTime));
+	        chargeIndicator.SetValue(currentChargeTime/maxChargeTime);
         }
 	}
 
@@ -39,7 +39,7 @@ public class Shoot : MonoBehaviour
     public void ShootRelease()
     {
         myRobot.Player.SetVibration(0, 1.0f, 0.5f);
-        chargeMaterial.SetFloat("_AlphaValue", 1);
+        chargeIndicator.SetValue(0);
         Debug.Log("On ShootRelease");
         Projectile projectile = Instantiate(ball, (transform.position + transform.forward / 4), transform.rotation, transform);
         Physics.IgnoreCollision(projectile.GetComponent<Collider>(), GetComponent<Collider>());
