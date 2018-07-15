@@ -50,9 +50,9 @@ public class Shoot : MonoBehaviour
 	        if (maxCharged) return;
 
 	        currentChargeTime += Time.deltaTime;
-	        if (currentChargeTime >= chargeInfo[currentChargeCycle].chargeTimer) GoToNextCycle();
 
-            chargeIndicator.SetValue(currentChargeTime/chargeInfo[currentChargeCycle].chargeTimer);
+	        chargeIndicator.SetValue(currentChargeTime / chargeInfo[currentChargeCycle].chargeTimer);
+            if (currentChargeTime >= chargeInfo[currentChargeCycle].chargeTimer) GoToNextCycle();
         }
 	}
 
