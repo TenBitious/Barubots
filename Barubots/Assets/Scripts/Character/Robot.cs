@@ -8,13 +8,8 @@ using Rewired;
 [RequireComponent(typeof(CharacterController))]
 public class Robot : MonoBehaviour
 {
-    public enum PlayerId {
-        Player0 = 0,
-        Player1 = 1,
-        Player2 = 2,
-        Player3 = 3,
-    }
-    public PlayerId playerId = 0; // The Rewired player id of this character
+
+    private int playerId; // The Rewired player id of this character
 
     [Header("Movement")]
     public AnimationCurve acceleration;
@@ -44,8 +39,6 @@ public class Robot : MonoBehaviour
     private Vector3 rotateVector;
     private Vector3 gravityVector;
 
-
-
     private float damagePercentage;
     private bool fire;
     private bool fireDown;
@@ -64,14 +57,11 @@ public class Robot : MonoBehaviour
 
     void Awake()
     {
+        playerId = GameManager.Instance.GetUniquePlayerId();
         damagePercentage = 0;
         slowMotionTimer = 1;
         // Get the Rewired Player object for this player and keep it for the duration of the character's lifetime
-        player = ReInput.players.GetPlayer((int)playerId);
-
-        player.AddInputEventDelegate(ApplyFireDown, UpdateLoopType.Update, InputActionEventType.ButtonJustPressed, "fire");
-        player.AddInputEventDelegate(ApplyFireUp, UpdateLoopType.Update, InputActionEventType.ButtonJustReleased, "fire");
-
+        SetPlayerId((int)playerId);
         groundChecker = transform.Find("GroundChecker");
 
         // Get the character controller
@@ -110,6 +100,14 @@ public class Robot : MonoBehaviour
         {
             positions.RemoveFirst();
         }
+    }
+
+    public void SetPlayerId(int id)
+    {
+        player = ReInput.players.GetPlayer(playerId);
+
+        player.AddInputEventDelegate(ApplyFireDown, UpdateLoopType.Update, InputActionEventType.ButtonJustPressed, "fire");
+        player.AddInputEventDelegate(ApplyFireUp, UpdateLoopType.Update, InputActionEventType.ButtonJustReleased, "fire");
     }
 
     private void UpdateSlowMotionTimer()
@@ -199,6 +197,7 @@ public class Robot : MonoBehaviour
     {
         Vector3 knockBackDistance = knockBack * direction * (1 + damagePercentage / 100) * (chargeForce + 1);     
         totalMoveVector += knockBackDistance;
+        Debug.Log("Knock back: " + totalMoveVector.magnitude);
     }
 
     public void GetHit(Vector3 position, float damage, float knockBack, float chargeForce)

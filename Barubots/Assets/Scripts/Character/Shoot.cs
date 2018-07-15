@@ -90,7 +90,7 @@ public class Shoot : MonoBehaviour
 
         // CameraShake.instance.shakeDuration = chargeForce * cameraShakeForce;
         projectile.Shoot(transform.forward * chargeInfo[currentChargeCycle-1].power);
-        projectile.SetChargeForce(currentChargeCycle);
+        //projectile.SetChargeForce(currentChargeCycle);
 
         ApplyKnockBack();
         ResetCharge();

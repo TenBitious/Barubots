@@ -8,13 +8,13 @@ public class Projectile : MonoBehaviour
     private Collider myCollider;
     public ParticleSystem particlePrefab;
     public float lifeTime = 1.0f;
-    public float damage = 10f;
-    public float knockBack = 100f;
+    public float damage = 20f;
+    public float knockBackMultiplier = 1.2f;
 
     public AnimationCurve slowMotion;
     private float slowMotionTime;
-    private Vector3 direction;
-    private float chargeForce;
+    private Vector3 force;
+    private float chargeForce = 1;
     private float currentLifeTime;
     private bool isActive;
     private Vector3 oldPosition;
@@ -58,7 +58,8 @@ public class Projectile : MonoBehaviour
 
     public void Shoot(Vector3 force)
     {
-        direction = force;
+        Debug.Log(force.magnitude);
+        this.force = force;
         transform.parent = null;
         myCollider.enabled = true;
         currentLifeTime = lifeTime;
@@ -79,14 +80,14 @@ public class Projectile : MonoBehaviour
 
         if (col.gameObject.layer == LayerMask.NameToLayer("Ground"))
         {
-            direction = myRigidbody.velocity;
+            force = myRigidbody.velocity;
         }
     }
 
     private void DoKnockBack(Collision col)
     {
         Robot robot = col.transform.GetComponent<Robot>();
-        robot.GetHit(direction.normalized, damage, knockBack, chargeForce);
+        robot.GetHit(force.normalized, damage, force.magnitude * knockBackMultiplier, chargeForce);
         myRigidbody.angularVelocity = Vector3.zero;
         myRigidbody.velocity = Vector3.zero;
 
