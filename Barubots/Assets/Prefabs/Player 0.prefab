@@ -113,7 +113,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1322563004301328}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.900704, y: 4.4, z: 3.6770678}
+  m_LocalPosition: {x: 4.900704, y: 9.12, z: 3.6770678}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4774704255099920}
@@ -242,17 +242,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   chargeInfo:
-  - power: 10
-    knockback: 10
+  - projectileSpeed: 10
+    shooterKnockback: 8
     chargeTimer: 0.4
+    walkSpeedReduction: 20
+    vibrationAtReleaseDuration: 0.2
+    vibrationAtReleasePower: 0.3
+    vibrationAtChargeDuration: 0.2
+    vibrationAtChargePower: 0.3
+    cameraShakeDurationAtShot: 0.1
     indicatorColor: {r: 0.0141509175, g: 0.92447025, b: 1, a: 0}
-  - power: 20
-    knockback: 20
+  - projectileSpeed: 20
+    shooterKnockback: 20
     chargeTimer: 0.8
+    walkSpeedReduction: 50
+    vibrationAtReleaseDuration: 0.3
+    vibrationAtReleasePower: 0.5
+    vibrationAtChargeDuration: 0.2
+    vibrationAtChargePower: 0.4
+    cameraShakeDurationAtShot: 0.2
     indicatorColor: {r: 1, g: 0.50476193, b: 0, a: 0}
-  - power: 40
-    knockback: 40
-    chargeTimer: 1.2
+  - projectileSpeed: 50
+    shooterKnockback: 40
+    chargeTimer: 1
+    walkSpeedReduction: 80
+    vibrationAtReleaseDuration: 0.6
+    vibrationAtReleasePower: 0.8
+    vibrationAtChargeDuration: 0.3
+    vibrationAtChargePower: 0.6
+    cameraShakeDurationAtShot: 0.3
     indicatorColor: {r: 1, g: 0, b: 0.92679024, a: 0}
   ball: {fileID: 114154563290108340, guid: 6523520179d42584a8e82bfc44372b04, type: 2}
   chargeIndicator: {fileID: 114053613952313606}
@@ -268,7 +286,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b3e5ef0bf5abe043ba9b728820d88e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerId: 2
+  playerId: 1
   acceleration:
     serializedVersion: 2
     m_Curve:
@@ -303,8 +321,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0.9965237
-      value: 0
+      time: 0.15
+      value: -0.05000305
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -312,8 +330,8 @@ MonoBehaviour:
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 1
-      value: 1
+      time: 0.15009815
+      value: 1.0000015
       inSlope: 2
       outSlope: 2
       tangentMode: 0
@@ -335,8 +353,8 @@ CharacterController:
   serializedVersion: 2
   m_Height: 1
   m_Radius: 0.5
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
+  m_SlopeLimit: 0
+  m_StepOffset: 0
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
