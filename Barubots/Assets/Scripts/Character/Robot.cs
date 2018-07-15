@@ -160,25 +160,20 @@ public class Robot : MonoBehaviour
         if (moveVector.x != 0.0f || moveVector.z != 0.0f)
         {
             totalMoveVector += moveVector * moveSpeed * Time.deltaTime * acceleration.Evaluate(startUpTime);
-            // cc.Move(moveVector * moveSpeed * Time.deltaTime * startUpCurve.Evaluate(startUpTime));
         }
     }
- 
+
     private void ApplyFireDown(InputActionEventData data)
     {
-
-            Debug.Log("Fire down");
-            shootComponent.ShootStart();
-        
+        Debug.Log("Fire down");
+        shootComponent.ShootStart();
     }
 
     private void ApplyFireUp(InputActionEventData data)
     {
-
-            Debug.Log("Fire up");
-            shootComponent.ShootRelease();
-            totalMoveVector += -transform.forward * shootKnockBackDistance;
-        
+        Debug.Log("Fire up");
+        shootComponent.ShootRelease();
+        totalMoveVector += -transform.forward * shootKnockBackDistance;
     }
     
     // Process rotation input
@@ -191,6 +186,7 @@ public class Robot : MonoBehaviour
             transform.rotation = Quaternion.LookRotation(newDir);
         }
     }
+
     private void ApplyDrag()
     {
         totalMoveVector.x /= 1 + (drag.x * Time.deltaTime) * slowMotion.Evaluate(slowMotionTimer);
@@ -203,23 +199,8 @@ public class Robot : MonoBehaviour
         cc.Move(totalMoveVector * Time.deltaTime * slowMotion.Evaluate(slowMotionTimer));
     }
 
-    void OnControllerColliderHit(ControllerColliderHit hit)
+    private void ApplyForce(Vector3 direction, float damage, float knockBack)
     {
-        Rigidbody body = hit.collider.attachedRigidbody;
-        //Debug.Log(hit.transform.name);
-        //if (body == null || body.isKinematic)
-        //    return;
-
-        //if (hit.moveDirection.y < -0.3F)
-        //    return;
-
-        //Vector3 pushDir = new Vector3(hit.moveDirection.x, 0, hit.moveDirection.z);
-        //body.velocity = pushDir * pushPower;
-    }
-
-    private void ApplyForce(Vector3 position, float damage, float knockBack)
-    {
-        Vector3 direction = (positions.First.Value - position).normalized;
         Vector3 knockBackDistance = knockBack * direction * (1 + damagePercentage / 100);     
         totalMoveVector += knockBackDistance;
     }

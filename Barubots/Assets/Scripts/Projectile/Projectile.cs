@@ -13,6 +13,7 @@ public class Projectile : MonoBehaviour
 
     public AnimationCurve slowMotion;
     private float slowMotionTime;
+    private Vector3 direction;
 
     private float currentLifeTime;
     private bool isActive;
@@ -57,6 +58,7 @@ public class Projectile : MonoBehaviour
 
     public void Shoot(Vector3 force)
     {
+        direction = force;
         transform.parent = null;
         myCollider.enabled = true;
         currentLifeTime = lifeTime;
@@ -74,12 +76,17 @@ public class Projectile : MonoBehaviour
 
             //Destroy(gameObject);
         }
+
+        if (col.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        {
+            direction = myRigidbody.velocity;
+        }
     }
 
     private void DoKnockBack(Collision col)
     {
         Robot robot = col.transform.GetComponent<Robot>();
-        robot.GetHit(positions.Last.Value, damage, knockBack);
+        robot.GetHit(direction.normalized, damage, knockBack);
         myRigidbody.angularVelocity = Vector3.zero;
         myRigidbody.velocity = Vector3.zero;
 
@@ -90,16 +97,10 @@ public class Projectile : MonoBehaviour
     {
         yield return new WaitForSeconds(0.15f);
         myRigidbody.AddForce((positions.First.Value - robot.GetPreviousPosition()).normalized * 100 , ForceMode.Force);
-        //while (true)
-        //{
-        //    myRigidbody.AddForce((positions.First.Value - robot.GetPreviousPosition()).normalized * 10 * slowMotion.Evaluate(slowMotionTime), ForceMode.Force);
-        //    slowMotionTime += Time.deltaTime;   
-        //    Debug.Log(slowMotionTime);
-        //    yield return new WaitForFixedUpdate();
-        //}
     }
 
     void OnCollisionExit(Collision col)
     {
+
     }
 }
