@@ -113,7 +113,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1322563004301328}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.36, z: 0}
+  m_LocalPosition: {x: 4.900704, y: 9.12, z: 3.6770678}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4774704255099920}
@@ -241,78 +241,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcdc48024d7a3d84eb72ec304986290a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chargeInfo: []
+  chargeInfo:
+  - power: 10
+    knockback: 10
+    chargeTimer: 1
+    indicatorColor: {r: 0.0141509175, g: 0.92447025, b: 1, a: 0}
+  - power: 20
+    knockback: 20
+    chargeTimer: 1
+    indicatorColor: {r: 1, g: 0.50476193, b: 0, a: 0}
+  - power: 50
+    knockback: 50
+    chargeTimer: 1
+    indicatorColor: {r: 1, g: 0, b: 0.92679024, a: 0}
   ball: {fileID: 114154563290108340, guid: 6523520179d42584a8e82bfc44372b04, type: 2}
-  chargeCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: -0.01
-      value: 0.30048263
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.70694333
-      value: 0.50874346
-      inSlope: 0.91277987
-      outSlope: 0.91277987
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.13751808
-    - serializedVersion: 3
-      time: 1
-      value: 0.99786377
-      inSlope: 2
-      outSlope: 2
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
   chargeIndicator: {fileID: 114053613952313606}
-  maxChargeTime: 1
-  maxShootPower: 30
-  knockbackCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0.0000011909287
-      value: 0.30043587
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.7312263
-      value: 0.37873173
-      inSlope: 0.42460898
-      outSlope: 0.42460898
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 3.622825
-      outSlope: 3.622825
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.07713437
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  shootKnockBackDistance: 50
   cameraShakeForce: 0.05
 --- !u!114 &114996564377122488
 MonoBehaviour:
@@ -360,7 +303,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0.49996188
+      time: 0.15
       value: -0.05000305
       inSlope: 0
       outSlope: 0
@@ -369,7 +312,7 @@ MonoBehaviour:
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.50008136
+      time: 0.15009815
       value: 1.0000015
       inSlope: 2
       outSlope: 2
