@@ -69,6 +69,10 @@ public class Robot : MonoBehaviour
         slowMotionTimer = 1;
         // Get the Rewired Player object for this player and keep it for the duration of the character's lifetime
         player = ReInput.players.GetPlayer((int)playerId);
+
+        player.AddInputEventDelegate(ApplyFireDown, UpdateLoopType.Update, InputActionEventType.ButtonJustPressed, "fire");
+        player.AddInputEventDelegate(ApplyFireUp, UpdateLoopType.Update, InputActionEventType.ButtonJustReleased, "fire");
+
         groundChecker = transform.Find("GroundChecker");
 
         // Get the character controller
@@ -90,7 +94,7 @@ public class Robot : MonoBehaviour
         CalculateMovement();
         CalculateGravity();
         ApplyRotation();
-        ApplyFire();
+        // ApplyFireDown();
 
         ApplyDrag();
         ApplyMove();
@@ -160,16 +164,21 @@ public class Robot : MonoBehaviour
         }
     }
  
-    private void ApplyFire()
+    private void ApplyFireDown(InputActionEventData data)
     {
-        if (fireDown)
-        {
+
+            Debug.Log("Fire down");
             shootComponent.ShootStart();
-        } else if (fireUp)
-        {
+        
+    }
+
+    private void ApplyFireUp(InputActionEventData data)
+    {
+
+            Debug.Log("Fire up");
             shootComponent.ShootRelease();
             totalMoveVector += -transform.forward * shootKnockBackDistance;
-        }
+        
     }
     
     // Process rotation input
