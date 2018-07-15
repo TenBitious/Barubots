@@ -16,7 +16,7 @@ public class ChargeIndicator : MonoBehaviour {
     public void SetValue(float value)
     {
         _renderer.GetPropertyBlock(_propBlock);
-        _propBlock.SetFloat("_AlphaValue", 1 - value);
+        _propBlock.SetFloat("_AlphaValue", 0.95f - value);
         _renderer.SetPropertyBlock(_propBlock);
     }
 }

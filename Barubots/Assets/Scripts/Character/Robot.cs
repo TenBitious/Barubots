@@ -177,7 +177,6 @@ public class Robot : MonoBehaviour
 
             Debug.Log("Fire up");
             shootComponent.ShootRelease();
-            totalMoveVector += -transform.forward * shootKnockBackDistance;
         
     }
     
