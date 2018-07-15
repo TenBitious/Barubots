@@ -20,7 +20,6 @@ public class Robot : MonoBehaviour
     public AnimationCurve acceleration;
     public float moveSpeed = 100f;
     public Vector3 drag = new Vector3(18, 0, 18);
-    public float shootKnockBackDistance = 40;
 
     [Header("Ground")]
     public LayerMask Ground;
@@ -173,7 +172,6 @@ public class Robot : MonoBehaviour
     {
         Debug.Log("Fire up");
         shootComponent.ShootRelease();
-        totalMoveVector += -transform.forward * shootKnockBackDistance;
     }
     
     // Process rotation input
