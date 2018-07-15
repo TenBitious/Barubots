@@ -14,7 +14,7 @@ public class Projectile : MonoBehaviour
     public AnimationCurve slowMotion;
     private float slowMotionTime;
     private Vector3 direction;
-
+    private float chargeForce;
     private float currentLifeTime;
     private bool isActive;
     private Vector3 oldPosition;
@@ -86,7 +86,7 @@ public class Projectile : MonoBehaviour
     private void DoKnockBack(Collision col)
     {
         Robot robot = col.transform.GetComponent<Robot>();
-        robot.GetHit(direction.normalized, damage, knockBack);
+        robot.GetHit(direction.normalized, damage, knockBack, chargeForce);
         myRigidbody.angularVelocity = Vector3.zero;
         myRigidbody.velocity = Vector3.zero;
 
@@ -95,12 +95,12 @@ public class Projectile : MonoBehaviour
 
     IEnumerator AddForce(Robot robot)
     {
-        yield return new WaitForSeconds(0.15f);
+        yield return new WaitForSeconds(GameManager.Instance.MaxSlowMotionDuration * chargeForce);
         myRigidbody.AddForce((positions.First.Value - robot.GetPreviousPosition()).normalized * 100 , ForceMode.Force);
     }
 
-    void OnCollisionExit(Collision col)
+    public void SetChargeForce(float chargeForce)
     {
-
+        this.chargeForce = chargeForce;
     }
 }

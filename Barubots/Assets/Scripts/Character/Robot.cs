@@ -164,13 +164,11 @@ public class Robot : MonoBehaviour
 
     private void ApplyFireDown(InputActionEventData data)
     {
-        Debug.Log("Fire down");
         shootComponent.ShootStart();
     }
 
     private void ApplyFireUp(InputActionEventData data)
     {
-        Debug.Log("Fire up");
         shootComponent.ShootRelease();
     }
     
@@ -197,19 +195,19 @@ public class Robot : MonoBehaviour
         cc.Move(totalMoveVector * Time.deltaTime * slowMotion.Evaluate(slowMotionTimer));
     }
 
-    private void ApplyForce(Vector3 direction, float damage, float knockBack)
+    private void ApplyForce(Vector3 direction, float damage, float knockBack, float chargeForce)
     {
-        Vector3 knockBackDistance = knockBack * direction * (1 + damagePercentage / 100);     
+        Vector3 knockBackDistance = knockBack * direction * (1 + damagePercentage / 100) * (chargeForce + 1);     
         totalMoveVector += knockBackDistance;
     }
 
-    public void GetHit(Vector3 position, float damage, float knockBack)
+    public void GetHit(Vector3 position, float damage, float knockBack, float chargeForce)
     {
         //CameraShake.instance.shakeDuration = 0.3f;
-        ApplyForce(position, damage, knockBack);
+        ApplyForce(position, damage, knockBack, chargeForce);
         DoDamage(damage);
 
-        slowMotionTimer = 0;
+        slowMotionTimer = slowMotion.keys[slowMotion.keys.Length - 1].time - (GameManager.Instance.MaxSlowMotionDuration * chargeForce);
     }
 
     private void DoDamage(float damage)

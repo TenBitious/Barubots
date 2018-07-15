@@ -34,7 +34,6 @@ public class Shoot : MonoBehaviour
 
     public void ShootStart()
     {
-        Debug.Log("On ShootStart");
         isCharging = true;
         currentChargeTime = 0f;
     }
@@ -45,11 +44,11 @@ public class Shoot : MonoBehaviour
         // Instatiate the projectile
         Projectile projectile = Instantiate(ball, (transform.position + transform.forward / 4), transform.rotation, transform);
         Physics.IgnoreCollision(projectile.GetComponent<Collider>(), GetComponent<Collider>());
-
-        float chargeForce = chargeCurve.Evaluate((Mathf.Clamp(currentChargeTime, 0f, maxChargeTime) / maxChargeTime));
+        float chargeTime = Mathf.Clamp(currentChargeTime, 0f, maxChargeTime) / maxChargeTime;
+        float chargeForce = chargeCurve.Evaluate(chargeTime);
         CameraShake.instance.shakeDuration = chargeForce * cameraShakeForce;
         projectile.Shoot(transform.forward * (maxShootPower * chargeForce));
-
+        projectile.SetChargeForce(chargeTime);
         ApplyKnockBack();
 
         // Set default values
