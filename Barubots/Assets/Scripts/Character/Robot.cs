@@ -192,7 +192,9 @@ public class Robot : MonoBehaviour
 
     private void ApplyMove()
     {
-        cc.Move(totalMoveVector * Time.deltaTime * slowMotion.Evaluate(slowMotionTimer));
+        Vector3 vectorToAply = totalMoveVector;
+        vectorToAply *= shootComponent.SlowReduction;
+        cc.Move(vectorToAply * Time.deltaTime * slowMotion.Evaluate(slowMotionTimer));
     }
 
     private void ApplyForce(Vector3 direction, float damage, float knockBack, float chargeForce)

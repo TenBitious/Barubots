@@ -6,9 +6,15 @@ using UnityEngine;
 [Serializable]
 public struct ChargeInfo
 {
-    public float power;
-    public float knockback;
+    public float projectileSpeed;
+    public float shooterKnockback;
     public float chargeTimer;
+    public float walkSpeedReduction;
+    public float vibrationAtReleaseDuration;
+    public float vibrationAtReleasePower;
+    public float vibrationAtChargeDuration;
+    public float vibrationAtChargePower;
+    public float cameraShakeDurationAtShot;
     public Color indicatorColor;
 }
 
@@ -26,6 +32,12 @@ public class Shoot : MonoBehaviour
     private bool isCharging;
 
     private bool maxCharged;
+
+    private float slowReduction;
+    public float SlowReduction
+    {
+        get { return 1.0f - (slowReduction/100); }
+    }
     // Use this for initialization
     void Start ()
     {
@@ -34,7 +46,7 @@ public class Shoot : MonoBehaviour
         SetIndicatorColors();
     }
 
-    void SetIndicatorColors()
+    private void SetIndicatorColors()
     {
         Vector4[] colorsAsVector4 = new Vector4[chargeInfo.Length];
         for (int i = 0; i < chargeInfo.Length; i++)
@@ -56,8 +68,10 @@ public class Shoot : MonoBehaviour
         }
 	}
 
-    public void GoToNextCycle()
+    private void GoToNextCycle()
     {
+        myRobot.Player.SetVibration(0, chargeInfo[currentChargeCycle].vibrationAtChargePower, chargeInfo[currentChargeCycle].vibrationAtChargeDuration);
+        slowReduction = chargeInfo[currentChargeCycle].walkSpeedReduction;
         if (currentChargeCycle >= chargeInfo.Length-1)
         {
             currentChargeCycle++;
@@ -83,13 +97,15 @@ public class Shoot : MonoBehaviour
             ResetCharge();
             return;
         }
-        myRobot.Player.SetVibration(0, 1.0f, 0.5f);
+
+        myRobot.Player.SetVibration(0, chargeInfo[currentChargeCycle - 1].vibrationAtReleasePower,
+            chargeInfo[currentChargeCycle - 1].vibrationAtReleaseDuration);
         // Instatiate the projectile
         Projectile projectile = Instantiate(ball, (transform.position + transform.forward / 4), transform.rotation, transform);
         Physics.IgnoreCollision(projectile.GetComponent<Collider>(), GetComponent<Collider>());
 
         // CameraShake.instance.shakeDuration = chargeForce * cameraShakeForce;
-        projectile.Shoot(transform.forward * chargeInfo[currentChargeCycle-1].power);
+        projectile.Shoot(transform.forward * chargeInfo[currentChargeCycle -1 ].projectileSpeed);
         projectile.SetChargeForce(currentChargeCycle);
 
         ApplyKnockBack();
@@ -104,6 +120,7 @@ public class Shoot : MonoBehaviour
         // Set default values
         isCharging = false;
         maxCharged = false;
+        slowReduction = 0;
         currentChargeCycle = 0;
         currentChargeTime = 0f;
         chargeIndicator.Reset();
@@ -111,6 +128,6 @@ public class Shoot : MonoBehaviour
 
     void ApplyKnockBack()
     {
-        myRobot.TotalMoveVector += -transform.forward * chargeInfo[currentChargeCycle-1].knockback;
+        myRobot.TotalMoveVector += -transform.forward * chargeInfo[currentChargeCycle-1].shooterKnockback;
     }
 }

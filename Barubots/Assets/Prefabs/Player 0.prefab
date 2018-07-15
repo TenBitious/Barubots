@@ -242,17 +242,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   chargeInfo:
-  - power: 10
-    knockback: 10
-    chargeTimer: 1
+  - projectileSpeed: 10
+    shooterKnockback: 8
+    chargeTimer: 0.4
+    walkSpeedReduction: 20
+    vibrationAtReleaseDuration: 0.2
+    vibrationAtReleasePower: 0.3
+    vibrationAtChargeDuration: 0.2
+    vibrationAtChargePower: 0.3
+    cameraShakeDurationAtShot: 0.1
     indicatorColor: {r: 0.0141509175, g: 0.92447025, b: 1, a: 0}
-  - power: 20
-    knockback: 20
-    chargeTimer: 1
+  - projectileSpeed: 20
+    shooterKnockback: 20
+    chargeTimer: 0.8
+    walkSpeedReduction: 50
+    vibrationAtReleaseDuration: 0.3
+    vibrationAtReleasePower: 0.5
+    vibrationAtChargeDuration: 0.2
+    vibrationAtChargePower: 0.4
+    cameraShakeDurationAtShot: 0.2
     indicatorColor: {r: 1, g: 0.50476193, b: 0, a: 0}
-  - power: 50
-    knockback: 50
+  - projectileSpeed: 50
+    shooterKnockback: 40
     chargeTimer: 1
+    walkSpeedReduction: 80
+    vibrationAtReleaseDuration: 0.6
+    vibrationAtReleasePower: 0.8
+    vibrationAtChargeDuration: 0.3
+    vibrationAtChargePower: 0.6
+    cameraShakeDurationAtShot: 0.3
     indicatorColor: {r: 1, g: 0, b: 0.92679024, a: 0}
   ball: {fileID: 114154563290108340, guid: 6523520179d42584a8e82bfc44372b04, type: 2}
   chargeIndicator: {fileID: 114053613952313606}
@@ -268,7 +286,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b3e5ef0bf5abe043ba9b728820d88e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerId: 0
+  playerId: 1
   acceleration:
     serializedVersion: 2
     m_Curve:
