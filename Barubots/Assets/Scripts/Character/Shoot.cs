@@ -16,13 +16,8 @@ public class Shoot : MonoBehaviour
 {
     public ChargeInfo[] chargeInfo;
     public Projectile ball;
-
-    public AnimationCurve chargeCurve;
+    
     public ChargeIndicator chargeIndicator;
-    public float maxChargeTime;
-    public float maxShootPower = 30f;
-    public AnimationCurve knockbackCurve;
-    public float shootKnockBackDistance = 40;
     public float cameraShakeForce = 0.05f;
 
     private int currentChargeCycle;
@@ -65,6 +60,7 @@ public class Shoot : MonoBehaviour
     {
         if (currentChargeCycle >= chargeInfo.Length-1)
         {
+            currentChargeCycle++;
             maxCharged = true;
             // TODO: Start max charge stuff
             return;
@@ -83,17 +79,28 @@ public class Shoot : MonoBehaviour
 
     public void ShootRelease()
     {
+        if (currentChargeCycle < 1)
+        {
+            ResetCharge();
+            return;
+        }
         myRobot.Player.SetVibration(0, 1.0f, 0.5f);
         // Instatiate the projectile
         Projectile projectile = Instantiate(ball, (transform.position + transform.forward / 4), transform.rotation, transform);
         Physics.IgnoreCollision(projectile.GetComponent<Collider>(), GetComponent<Collider>());
 
-        float chargeForce = chargeCurve.Evaluate((Mathf.Clamp(currentChargeTime, 0f, maxChargeTime) / maxChargeTime));
-        CameraShake.instance.shakeDuration = chargeForce * cameraShakeForce;
-        projectile.Shoot(transform.forward * (maxShootPower * chargeForce));
+        // CameraShake.instance.shakeDuration = chargeForce * cameraShakeForce;
+        projectile.Shoot(transform.forward * chargeInfo[currentChargeCycle-1].power);
 
         ApplyKnockBack();
+        ResetCharge();
+    }
 
+    /// <summary>
+    /// Sets default value of charge properties
+    /// </summary>
+    private void ResetCharge()
+    {
         // Set default values
         isCharging = false;
         maxCharged = false;
@@ -104,7 +111,6 @@ public class Shoot : MonoBehaviour
 
     void ApplyKnockBack()
     {
-        float knockBackForce = knockbackCurve.Evaluate((Mathf.Clamp(currentChargeTime, 0f, maxChargeTime) / maxChargeTime));
-        myRobot.TotalMoveVector += -transform.forward * knockBackForce * shootKnockBackDistance;
+        myRobot.TotalMoveVector += -transform.forward * chargeInfo[currentChargeCycle-1].knockback;
     }
 }
