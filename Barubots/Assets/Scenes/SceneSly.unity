@@ -1956,7 +1956,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4549242222503336, guid: 79e3771474100d44e9324baa64e5b2f7, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 9.12
+      value: 1.67
       objectReference: {fileID: 0}
     - target: {fileID: 4549242222503336, guid: 79e3771474100d44e9324baa64e5b2f7, type: 2}
       propertyPath: m_LocalPosition.z
@@ -1968,7 +1968,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4549242222503336, guid: 79e3771474100d44e9324baa64e5b2f7, type: 2}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: -0.9519667
       objectReference: {fileID: 0}
     - target: {fileID: 4549242222503336, guid: 79e3771474100d44e9324baa64e5b2f7, type: 2}
       propertyPath: m_LocalRotation.z
@@ -1976,150 +1976,49 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4549242222503336, guid: 79e3771474100d44e9324baa64e5b2f7, type: 2}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.3062018
       objectReference: {fileID: 0}
     - target: {fileID: 4549242222503336, guid: 79e3771474100d44e9324baa64e5b2f7, type: 2}
       propertyPath: m_RootOrder
       value: 8
       objectReference: {fileID: 0}
-    - target: {fileID: 114158479602898618, guid: 79e3771474100d44e9324baa64e5b2f7,
-        type: 2}
-      propertyPath: chargeInfo.Array.data[0].chargeTimer
-      value: 0.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 114158479602898618, guid: 79e3771474100d44e9324baa64e5b2f7,
-        type: 2}
-      propertyPath: chargeInfo.Array.data[1].chargeTimer
-      value: 0.8
-      objectReference: {fileID: 0}
     - target: {fileID: 1322563004301328, guid: 79e3771474100d44e9324baa64e5b2f7, type: 2}
       propertyPath: m_Name
       value: Player 0 (1)
       objectReference: {fileID: 0}
-    - target: {fileID: 114996564377122488, guid: 79e3771474100d44e9324baa64e5b2f7,
-        type: 2}
-      propertyPath: playerId
-      value: 1
+    - target: {fileID: 4549242222503336, guid: 79e3771474100d44e9324baa64e5b2f7, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -144.339
       objectReference: {fileID: 0}
     - target: {fileID: 114158479602898618, guid: 79e3771474100d44e9324baa64e5b2f7,
         type: 2}
-      propertyPath: chargeInfo.Array.data[0].vibrationAtChargeDuration
+      propertyPath: chargeInfo.Array.data[0].chargeTimer
       value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 114158479602898618, guid: 79e3771474100d44e9324baa64e5b2f7,
         type: 2}
-      propertyPath: chargeInfo.Array.data[0].vibrationAtChargePower
-      value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 114158479602898618, guid: 79e3771474100d44e9324baa64e5b2f7,
-        type: 2}
-      propertyPath: chargeInfo.Array.data[1].vibrationAtChargePower
-      value: 0.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 114158479602898618, guid: 79e3771474100d44e9324baa64e5b2f7,
-        type: 2}
-      propertyPath: chargeInfo.Array.data[1].vibrationAtChargeDuration
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114158479602898618, guid: 79e3771474100d44e9324baa64e5b2f7,
-        type: 2}
-      propertyPath: chargeInfo.Array.data[2].vibrationAtChargePower
-      value: 0.6
-      objectReference: {fileID: 0}
-    - target: {fileID: 114158479602898618, guid: 79e3771474100d44e9324baa64e5b2f7,
-        type: 2}
-      propertyPath: chargeInfo.Array.data[2].vibrationAtChargeDuration
-      value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 114158479602898618, guid: 79e3771474100d44e9324baa64e5b2f7,
-        type: 2}
-      propertyPath: chargeInfo.Array.data[0].vibrationAtReleaseDuration
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114158479602898618, guid: 79e3771474100d44e9324baa64e5b2f7,
-        type: 2}
-      propertyPath: chargeInfo.Array.data[0].vibrationAtReleasePower
-      value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 114158479602898618, guid: 79e3771474100d44e9324baa64e5b2f7,
-        type: 2}
-      propertyPath: chargeInfo.Array.data[1].vibrationAtReleaseDuration
-      value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 114158479602898618, guid: 79e3771474100d44e9324baa64e5b2f7,
-        type: 2}
-      propertyPath: chargeInfo.Array.data[1].vibrationAtReleasePower
+      propertyPath: chargeInfo.Array.data[1].chargeTimer
       value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 114158479602898618, guid: 79e3771474100d44e9324baa64e5b2f7,
         type: 2}
-      propertyPath: chargeInfo.Array.data[2].vibrationAtReleaseDuration
+      propertyPath: chargeInfo.Array.data[2].chargeTimer
       value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 114158479602898618, guid: 79e3771474100d44e9324baa64e5b2f7,
         type: 2}
-      propertyPath: chargeInfo.Array.data[2].vibrationAtReleasePower
-      value: 0.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 114158479602898618, guid: 79e3771474100d44e9324baa64e5b2f7,
-        type: 2}
       propertyPath: chargeInfo.Array.data[0].projectileSpeed
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 114158479602898618, guid: 79e3771474100d44e9324baa64e5b2f7,
-        type: 2}
-      propertyPath: chargeInfo.Array.data[0].shooterKnockback
-      value: 8
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 114158479602898618, guid: 79e3771474100d44e9324baa64e5b2f7,
         type: 2}
       propertyPath: chargeInfo.Array.data[1].projectileSpeed
-      value: 20
+      value: 35
       objectReference: {fileID: 0}
     - target: {fileID: 114158479602898618, guid: 79e3771474100d44e9324baa64e5b2f7,
         type: 2}
-      propertyPath: chargeInfo.Array.data[1].shooterKnockback
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 114158479602898618, guid: 79e3771474100d44e9324baa64e5b2f7,
-        type: 2}
-      propertyPath: chargeInfo.Array.data[2].projectileSpeed
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 114158479602898618, guid: 79e3771474100d44e9324baa64e5b2f7,
-        type: 2}
-      propertyPath: chargeInfo.Array.data[2].shooterKnockback
-      value: 40
-      objectReference: {fileID: 0}
-    - target: {fileID: 114158479602898618, guid: 79e3771474100d44e9324baa64e5b2f7,
-        type: 2}
-      propertyPath: chargeInfo.Array.data[0].cameraShakeDurationAtShot
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114158479602898618, guid: 79e3771474100d44e9324baa64e5b2f7,
-        type: 2}
-      propertyPath: chargeInfo.Array.data[1].cameraShakeDurationAtShot
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114158479602898618, guid: 79e3771474100d44e9324baa64e5b2f7,
-        type: 2}
-      propertyPath: chargeInfo.Array.data[2].cameraShakeDurationAtShot
-      value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 114158479602898618, guid: 79e3771474100d44e9324baa64e5b2f7,
-        type: 2}
-      propertyPath: chargeInfo.Array.data[2].walkSpeedReduction
-      value: 80
-      objectReference: {fileID: 0}
-    - target: {fileID: 114158479602898618, guid: 79e3771474100d44e9324baa64e5b2f7,
-        type: 2}
-      propertyPath: chargeInfo.Array.data[1].walkSpeedReduction
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 114158479602898618, guid: 79e3771474100d44e9324baa64e5b2f7,
-        type: 2}
-      propertyPath: chargeInfo.Array.data[0].walkSpeedReduction
-      value: 20
+      propertyPath: chargeInfo.Array.data[0].shooterKnockback
+      value: 15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 79e3771474100d44e9324baa64e5b2f7, type: 2}
@@ -2133,15 +2032,15 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4549242222503336, guid: 79e3771474100d44e9324baa64e5b2f7, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 4.900704
+      value: -3.57
       objectReference: {fileID: 0}
     - target: {fileID: 4549242222503336, guid: 79e3771474100d44e9324baa64e5b2f7, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 9.12
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4549242222503336, guid: 79e3771474100d44e9324baa64e5b2f7, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 3.6770678
+      value: -6.53
       objectReference: {fileID: 0}
     - target: {fileID: 4549242222503336, guid: 79e3771474100d44e9324baa64e5b2f7, type: 2}
       propertyPath: m_LocalRotation.x
@@ -2166,12 +2065,12 @@ Prefab:
     - target: {fileID: 114158479602898618, guid: 79e3771474100d44e9324baa64e5b2f7,
         type: 2}
       propertyPath: chargeInfo.Array.data[0].chargeTimer
-      value: 0.4
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 114158479602898618, guid: 79e3771474100d44e9324baa64e5b2f7,
         type: 2}
       propertyPath: chargeInfo.Array.data[1].chargeTimer
-      value: 0.8
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 1322563004301328, guid: 79e3771474100d44e9324baa64e5b2f7, type: 2}
       propertyPath: m_Name
@@ -2245,17 +2144,17 @@ Prefab:
     - target: {fileID: 114158479602898618, guid: 79e3771474100d44e9324baa64e5b2f7,
         type: 2}
       propertyPath: chargeInfo.Array.data[0].projectileSpeed
-      value: 10
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 114158479602898618, guid: 79e3771474100d44e9324baa64e5b2f7,
         type: 2}
       propertyPath: chargeInfo.Array.data[0].shooterKnockback
-      value: 8
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 114158479602898618, guid: 79e3771474100d44e9324baa64e5b2f7,
         type: 2}
       propertyPath: chargeInfo.Array.data[1].projectileSpeed
-      value: 20
+      value: 35
       objectReference: {fileID: 0}
     - target: {fileID: 114158479602898618, guid: 79e3771474100d44e9324baa64e5b2f7,
         type: 2}
@@ -2301,6 +2200,11 @@ Prefab:
         type: 2}
       propertyPath: chargeInfo.Array.data[0].walkSpeedReduction
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 114158479602898618, guid: 79e3771474100d44e9324baa64e5b2f7,
+        type: 2}
+      propertyPath: chargeInfo.Array.data[2].chargeTimer
+      value: 0.6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 79e3771474100d44e9324baa64e5b2f7, type: 2}

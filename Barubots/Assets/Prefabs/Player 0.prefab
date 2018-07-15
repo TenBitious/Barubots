@@ -100,7 +100,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1835722609397112}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: -0.48, z: -0}
+  m_LocalPosition: {x: 0, y: -0.53, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4549242222503336}
@@ -113,7 +113,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1322563004301328}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.900704, y: 9.12, z: 3.6770678}
+  m_LocalPosition: {x: 4.900704, y: 1.67, z: 3.6770678}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4774704255099920}
@@ -261,7 +261,7 @@ MonoBehaviour:
     vibrationAtChargeDuration: 0.2
     vibrationAtChargePower: 0.4
     cameraShakeDurationAtShot: 0.2
-    indicatorColor: {r: 1, g: 0.50476193, b: 0, a: 0}
+    indicatorColor: {r: 0.9049516, g: 1, b: 0, a: 0}
   - projectileSpeed: 50
     shooterKnockback: 40
     chargeTimer: 1
@@ -271,7 +271,7 @@ MonoBehaviour:
     vibrationAtChargeDuration: 0.3
     vibrationAtChargePower: 0.6
     cameraShakeDurationAtShot: 0.3
-    indicatorColor: {r: 1, g: 0, b: 0.92679024, a: 0}
+    indicatorColor: {r: 1, g: 0.009791803, b: 0, a: 0}
   ball: {fileID: 114154563290108340, guid: 6523520179d42584a8e82bfc44372b04, type: 2}
   chargeIndicator: {fileID: 114053613952313606}
   cameraShakeForce: 0.05
@@ -286,7 +286,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b3e5ef0bf5abe043ba9b728820d88e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerId: 1
   acceleration:
     serializedVersion: 2
     m_Curve:
