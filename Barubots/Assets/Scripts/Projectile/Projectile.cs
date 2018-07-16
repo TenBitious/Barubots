@@ -64,7 +64,7 @@ public class Projectile : MonoBehaviour
         myCollider.enabled = true;
         currentLifeTime = lifeTime;
         isActive = true;
-        particlePrefab.Play();
+        particlePrefab.Play(true);
         myRigidbody.AddForce(force, ForceMode.Impulse);
     }
 
