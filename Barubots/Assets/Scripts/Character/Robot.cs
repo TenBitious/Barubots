@@ -35,6 +35,7 @@ public class Robot : MonoBehaviour
 
     private Player player; // The Rewired Player
     private CharacterController cc;
+    private DefensiveAbility defensiveAbilityScript;
     private Vector3 moveVector;
     private Vector3 rotateVector;
     private Vector3 gravityVector;
@@ -66,10 +67,19 @@ public class Robot : MonoBehaviour
 
         // Get the character controller
         cc = GetComponent<CharacterController>();
+        defensiveAbilityScript = GetComponent<DefensiveAbility>();
         
         shootComponent = GetComponent<Shoot>();
         // Get Physics gravity
         gravityVector = Physics.gravity;
+    }
+
+    private void Update()
+    {
+        if (player.GetButtonDown("defensive_ability"))
+        {
+            ApplyDefensiveAbility();
+        }
     }
 
     void FixedUpdate()
@@ -89,6 +99,11 @@ public class Robot : MonoBehaviour
         ApplyMove();
 
         UpdatePositions();
+    }
+
+    private void ApplyDefensiveAbility()
+    {
+        defensiveAbilityScript.DoShockWave();
     }
 
     private void UpdatePositions()
@@ -206,10 +221,10 @@ public class Robot : MonoBehaviour
         Debug.Log("Knock back: " + totalMoveVector.magnitude);
     }
 
-    public void GetHit(Vector3 position, float damage, float knockBack, float chargeForce)
+    public void GetHit(Vector3 direction, float damage, float knockBack, float chargeForce)
     {
         //CameraShake.instance.shakeDuration = 0.3f;
-        ApplyForce(position, damage, knockBack, chargeForce);
+        ApplyForce(direction, damage, knockBack, chargeForce);
         DoDamage(damage);
 
         slowMotionTimer = slowMotion.keys[slowMotion.keys.Length - 1].time - (GameManager.Instance.MaxSlowMotionDuration * chargeForce);

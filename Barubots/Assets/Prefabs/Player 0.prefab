@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 114996564377122488}
   - component: {fileID: 143469776047331060}
   - component: {fileID: 114158479602898618}
+  - component: {fileID: 114855921849556328}
   m_Layer: 0
   m_Name: Player 0
   m_TagString: Player
@@ -275,6 +276,18 @@ MonoBehaviour:
   ball: {fileID: 114234134435488406, guid: 6523520179d42584a8e82bfc44372b04, type: 2}
   chargeIndicator: {fileID: 114053613952313606}
   cameraShakeForce: 0.05
+--- !u!114 &114855921849556328
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1322563004301328}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4f738030a61d2e48ba3a662b1a053f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shockWave: {fileID: 1222550491574178, guid: 6ac57922aa13ec043852557fff4053cd, type: 2}
 --- !u!114 &114996564377122488
 MonoBehaviour:
   m_ObjectHideFlags: 1

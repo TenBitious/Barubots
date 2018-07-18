@@ -87,7 +87,6 @@ public class Projectile : MonoBehaviour
 
     public void Shoot(Vector3 force)
     {
-        Debug.Log(force.magnitude);
         this.force = force;
         transform.parent = null;
         myCollider.enabled = true;
@@ -125,13 +124,20 @@ public class Projectile : MonoBehaviour
         myRigidbody.angularVelocity = Vector3.zero;
         myRigidbody.velocity = Vector3.zero;
 
-        StartCoroutine(AddForce(robot));
+        StartCoroutine(AddForce(chargeForce, force.normalized * 100));
     }
 
-    IEnumerator AddForce(Robot robot)
+    public void GetHit(float chargeForce, Vector3 force)
+    {
+        myRigidbody.angularVelocity = Vector3.zero;
+        myRigidbody.velocity = Vector3.zero;
+        StartCoroutine(AddForce(chargeForce, force));
+    }
+
+    IEnumerator AddForce(float chargeForce, Vector3 force)
     {
         yield return new WaitForSeconds(GameManager.Instance.MaxSlowMotionDuration * chargeForce);
-        myRigidbody.AddForce(force.normalized * 100 , ForceMode.Force);
+        myRigidbody.AddForce(force, ForceMode.Force);
         myRigidbody.useGravity = true;
     }
 
