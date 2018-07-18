@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class DefensiveAbility : MonoBehaviour {
     public GameObject shockWave;
+    private bool cooldown = false;
+    public float cooldownDuration = 3f;
 
 	// Use this for initialization
 	void Start () {
@@ -12,6 +14,17 @@ public class DefensiveAbility : MonoBehaviour {
 
     public void DoShockWave()
     {
-        GameObject shockwave = Instantiate(shockWave, transform);
+        if (!cooldown)
+        {
+            GameObject shockwave = Instantiate(shockWave, transform);
+            StartCoroutine(StartCooldown());
+        }
+    }
+
+    IEnumerator StartCooldown()
+    {
+        cooldown = true;
+        yield return new WaitForSeconds(cooldownDuration);
+        cooldown = false;
     }
 }

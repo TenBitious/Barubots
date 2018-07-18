@@ -34,9 +34,6 @@ public class ShockWaveForce : MonoBehaviour {
                 col.GetComponent<Projectile>().GetHit(1, (col.transform.position - transform.position).normalized * force * 10);
             }
 			//rigidbody = col.GetComponent<Rigidbody>();
-			//if(rigidbody!=null){
-			//	rigidbody.AddExplosionForce(force, pos, radius);
-			//}
 		}
 	}
 	
