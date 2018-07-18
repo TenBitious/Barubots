@@ -123,8 +123,12 @@ public class Robot : MonoBehaviour
         moveVector.x = player.GetAxis("move_horizontal"); // get input by name or action id
         moveVector.z = player.GetAxis("move_vertical");
 
+        rotateVector.x = moveVector.x;
+        rotateVector.z = moveVector.z;
+        /*
         rotateVector.x = player.GetAxis("rotate_horizontal");
         rotateVector.z = player.GetAxis("rotate_vertical");
+        */
 
         fireDown = player.GetButtonDown("fire");
         fireUp = player.GetButtonUp("fire");

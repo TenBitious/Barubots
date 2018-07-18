@@ -100,11 +100,13 @@ public class Shoot : MonoBehaviour
 
         myRobot.Player.SetVibration(0, chargeInfo[currentChargeCycle - 1].vibrationAtReleasePower,
             chargeInfo[currentChargeCycle - 1].vibrationAtReleaseDuration);
+        myRobot.Player.SetVibration(1, chargeInfo[currentChargeCycle - 1].vibrationAtReleasePower,
+            chargeInfo[currentChargeCycle - 1].vibrationAtReleaseDuration);
         // Instatiate the projectile
         Projectile projectile = Instantiate(ball, (transform.position + transform.forward / 4), transform.rotation, transform);
         Physics.IgnoreCollision(projectile.GetComponent<Collider>(), GetComponent<Collider>());
 
-        // CameraShake.instance.shakeDuration = chargeForce * cameraShakeForce;
+        CameraShake.instance.shakeDuration = chargeInfo[currentChargeCycle - 1].cameraShakeDurationAtShot;
         projectile.Shoot(transform.forward * chargeInfo[currentChargeCycle -1 ].projectileSpeed);
         // projectile.SetChargeForce(currentChargeCycle);
 

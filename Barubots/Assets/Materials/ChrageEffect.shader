@@ -10,62 +10,68 @@
 	}
 	SubShader {
 		Pass {
-		CGPROGRAM
+			Tags{ "Queue" = "Transparent" "RenderType" = "Transparent" }
+			LOD 100
+			ZWrite Off
+			Blend SrcAlpha OneMinusSrcAlpha
 
-		#pragma vertex vert  
-		#pragma fragment frag
+			CGPROGRAM
 
-		// User-specified uniforms            
-		uniform sampler2D _MainTex;
-		uniform float4 _Color;
-		uniform float _AlphaValue; 
-		uniform float _MinCutofValue;
-		uniform float _ScaleX;
-		uniform float _ScaleY;
+			#pragma vertex vert  
+			#pragma fragment frag
 
-		uniform float4 colorIndicators[3];
-		uniform int currentCharge;
+			// User-specified uniforms            
+			uniform sampler2D _MainTex;
+			uniform float4 _Color;
+			uniform float _AlphaValue; 
+			uniform float _MinCutofValue;
+			uniform float _ScaleX;
+			uniform float _ScaleY;
 
-		struct vertexInput {
-			float4 vertex : POSITION;
-			float4 tex : TEXCOORD0;
-		};
-		struct vertexOutput {
-			float4 pos : SV_POSITION;
-			float4 tex : TEXCOORD0;
-		};
+			uniform float4 colorIndicators[3];
+			uniform int currentCharge;
 
-		vertexOutput vert(vertexInput input)
-		{
-			vertexOutput output;
-			output.pos = UnityObjectToClipPos(input.vertex); ;
-			/*
-			output.pos = mul(UNITY_MATRIX_P,
-				mul(UNITY_MATRIX_MV, float4(0.0, 0.0, 0.0, 1.0))
-				+ float4(input.vertex.x, input.vertex.y, 0.0, 0.0)
-				* float4(_ScaleX, _ScaleY, 1.0, 1.0));
-			*/
-			output.tex = input.tex;
+			struct vertexInput {
+				float4 vertex : POSITION;
+				float4 tex : TEXCOORD0;
+			};
+			struct vertexOutput {
+				float4 pos : SV_POSITION;
+				float4 tex : TEXCOORD0;
+			};
 
-			return output;
-		}
-
-		float4 frag(vertexOutput input) : COLOR
-		{
-			float4 texAlpha = tex2D(_MainTex, float2(input.tex.xy));
-			float4 col = colorIndicators[currentCharge];
-
-			if (texAlpha.r < _MinCutofValue) discard;
-
-			if (texAlpha.r < clamp(_AlphaValue, _MinCutofValue, 1))
+			vertexOutput vert(vertexInput input)
 			{
-				if (currentCharge < 1)	discard;
-				else col = colorIndicators[currentCharge - 1];
-			}
-			return col;
-		}
+				vertexOutput output;
+				output.pos = UnityObjectToClipPos(input.vertex); ;
+				/*
+				output.pos = mul(UNITY_MATRIX_P,
+					mul(UNITY_MATRIX_MV, float4(0.0, 0.0, 0.0, 1.0))
+					+ float4(input.vertex.x, input.vertex.y, 0.0, 0.0)
+					* float4(_ScaleX, _ScaleY, 1.0, 1.0));
+				*/
+				output.tex = input.tex;
 
-		ENDCG
+				return output;
+			}
+
+			float4 frag(vertexOutput input) : COLOR
+			{
+				float4 texAlpha = tex2D(_MainTex, float2(input.tex.xy));
+				float4 col = colorIndicators[currentCharge];
+
+				if (texAlpha.r < _MinCutofValue) discard;
+
+				if (texAlpha.r < clamp(_AlphaValue, _MinCutofValue, 1))
+				{
+					if (currentCharge < 1)	discard;
+					else col = colorIndicators[currentCharge - 1];
+				}
+				col.a = (sin(_Time * 200)/2 + 0.5);
+				return col;
+			}
+
+			ENDCG
 		}
 	}
 }

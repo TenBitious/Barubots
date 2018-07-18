@@ -32,6 +32,7 @@ public class ChargeIndicator : MonoBehaviour {
     public void GoTeNextCycle(int cycle)
     {
         _renderer.GetPropertyBlock(_propBlock);
+        _propBlock.SetFloat("_AlphaValue", 1.0f);
         SetCycle(cycle);
         _renderer.SetPropertyBlock(_propBlock);
     }
