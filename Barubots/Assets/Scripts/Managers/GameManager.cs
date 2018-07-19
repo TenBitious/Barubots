@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -47,5 +48,10 @@ public class GameManager : MonoBehaviour
     {
         playerIndex += 1;
         return playerIndex;
+    }
+
+    public Transform[] GetAllRobots()
+    {
+        return robots.Select(f => f.transform).ToArray<Transform>();
     }
  }
