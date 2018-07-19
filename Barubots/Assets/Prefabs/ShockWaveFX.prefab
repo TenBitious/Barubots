@@ -113,7 +113,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05bad7f35f93259489fa7770bb317145, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 4
+  radius: 5
   force: 50
   postShockFX: {fileID: 198972137490277546}
 --- !u!198 &198060521554951974

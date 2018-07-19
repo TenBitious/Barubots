@@ -4,13 +4,20 @@ using UnityEngine;
 
 public class ShockWaveForce : MonoBehaviour {
 
-	public float radius = 4;
+	public float radius = 5f;
 	public float force = 5f;
 	public ParticleSystem postShockFX;
+
+    private ParticleSystem shockFX;
 	Rigidbody rigidbody;
 
-	// Use this for initialization
-	void Start () {
+    private void Awake()
+    {
+        shockFX = gameObject.GetComponentInParent<ParticleSystem>();
+    }
+
+    // Use this for initialization
+    void Start () {
         ShockWave();
 	}
 
@@ -36,9 +43,9 @@ public class ShockWaveForce : MonoBehaviour {
 			//rigidbody = col.GetComponent<Rigidbody>();
 		}
 	}
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update () {
         if (!postShockFX.isPlaying)
         {
             Destroy(gameObject);
