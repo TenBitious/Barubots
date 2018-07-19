@@ -627,6 +627,7 @@ Transform:
   - {fileID: 1010800731}
   - {fileID: 514993953}
   - {fileID: 906148884}
+  - {fileID: 815928087}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1098,6 +1099,91 @@ MeshFilter:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 811241582}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &815928086
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 815928087}
+  - component: {fileID: 815928090}
+  - component: {fileID: 815928089}
+  - component: {fileID: 815928088}
+  m_Layer: 9
+  m_Name: Cube (5)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &815928087
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 815928086}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.5, z: 0}
+  m_LocalScale: {x: 1, y: 3.4092, z: 1}
+  m_Children: []
+  m_Father: {fileID: 292395756}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &815928088
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 815928086}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &815928089
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 815928086}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
+  m_Materials:
+  - {fileID: 2100000, guid: 0f15f8762f1d73140b100cfcd78b6c0e, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!33 &815928090
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 815928086}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &898580075
 GameObject:
@@ -1694,6 +1780,57 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1125952351}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1001 &1163553427
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4576330732322992, guid: 6523520179d42584a8e82bfc44372b04, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -17.27
+      objectReference: {fileID: 0}
+    - target: {fileID: 4576330732322992, guid: 6523520179d42584a8e82bfc44372b04, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 7.3590374
+      objectReference: {fileID: 0}
+    - target: {fileID: 4576330732322992, guid: 6523520179d42584a8e82bfc44372b04, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -12.30983
+      objectReference: {fileID: 0}
+    - target: {fileID: 4576330732322992, guid: 6523520179d42584a8e82bfc44372b04, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4576330732322992, guid: 6523520179d42584a8e82bfc44372b04, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4576330732322992, guid: 6523520179d42584a8e82bfc44372b04, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4576330732322992, guid: 6523520179d42584a8e82bfc44372b04, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4576330732322992, guid: 6523520179d42584a8e82bfc44372b04, type: 2}
+      propertyPath: m_RootOrder
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 1675393814421716, guid: 6523520179d42584a8e82bfc44372b04, type: 2}
+      propertyPath: m_Name
+      value: Ball (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 198773518221571162, guid: 6523520179d42584a8e82bfc44372b04,
+        type: 2}
+      propertyPath: InitialModule.startSize.scalar
+      value: 5.5
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 6523520179d42584a8e82bfc44372b04, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1001 &1276646810
 Prefab:
   m_ObjectHideFlags: 0
@@ -2137,6 +2274,10 @@ Prefab:
         type: 2}
       propertyPath: InitialModule.startLifetime.maxCurve.m_Curve.Array.data[1].outSlope
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1554197665847150, guid: fba7ccd697918ab4eb49eaeca8e2e465, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 199122829441752232, guid: fba7ccd697918ab4eb49eaeca8e2e465, type: 2}
@@ -6857,149 +6998,9 @@ Prefab:
       propertyPath: m_RootOrder
       value: 9
       objectReference: {fileID: 0}
-    - target: {fileID: 114158479602898618, guid: 79e3771474100d44e9324baa64e5b2f7,
-        type: 2}
-      propertyPath: chargeInfo.Array.data[0].chargeTimer
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114158479602898618, guid: 79e3771474100d44e9324baa64e5b2f7,
-        type: 2}
-      propertyPath: chargeInfo.Array.data[1].chargeTimer
-      value: 0.5
-      objectReference: {fileID: 0}
     - target: {fileID: 1322563004301328, guid: 79e3771474100d44e9324baa64e5b2f7, type: 2}
       propertyPath: m_Name
       value: Player 0 (2)
-      objectReference: {fileID: 0}
-    - target: {fileID: 114996564377122488, guid: 79e3771474100d44e9324baa64e5b2f7,
-        type: 2}
-      propertyPath: playerId
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114158479602898618, guid: 79e3771474100d44e9324baa64e5b2f7,
-        type: 2}
-      propertyPath: chargeInfo.Array.data[0].vibrationAtChargeDuration
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114158479602898618, guid: 79e3771474100d44e9324baa64e5b2f7,
-        type: 2}
-      propertyPath: chargeInfo.Array.data[0].vibrationAtChargePower
-      value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 114158479602898618, guid: 79e3771474100d44e9324baa64e5b2f7,
-        type: 2}
-      propertyPath: chargeInfo.Array.data[1].vibrationAtChargePower
-      value: 0.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 114158479602898618, guid: 79e3771474100d44e9324baa64e5b2f7,
-        type: 2}
-      propertyPath: chargeInfo.Array.data[1].vibrationAtChargeDuration
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114158479602898618, guid: 79e3771474100d44e9324baa64e5b2f7,
-        type: 2}
-      propertyPath: chargeInfo.Array.data[2].vibrationAtChargePower
-      value: 0.6
-      objectReference: {fileID: 0}
-    - target: {fileID: 114158479602898618, guid: 79e3771474100d44e9324baa64e5b2f7,
-        type: 2}
-      propertyPath: chargeInfo.Array.data[2].vibrationAtChargeDuration
-      value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 114158479602898618, guid: 79e3771474100d44e9324baa64e5b2f7,
-        type: 2}
-      propertyPath: chargeInfo.Array.data[0].vibrationAtReleaseDuration
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114158479602898618, guid: 79e3771474100d44e9324baa64e5b2f7,
-        type: 2}
-      propertyPath: chargeInfo.Array.data[0].vibrationAtReleasePower
-      value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 114158479602898618, guid: 79e3771474100d44e9324baa64e5b2f7,
-        type: 2}
-      propertyPath: chargeInfo.Array.data[1].vibrationAtReleaseDuration
-      value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 114158479602898618, guid: 79e3771474100d44e9324baa64e5b2f7,
-        type: 2}
-      propertyPath: chargeInfo.Array.data[1].vibrationAtReleasePower
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 114158479602898618, guid: 79e3771474100d44e9324baa64e5b2f7,
-        type: 2}
-      propertyPath: chargeInfo.Array.data[2].vibrationAtReleaseDuration
-      value: 0.6
-      objectReference: {fileID: 0}
-    - target: {fileID: 114158479602898618, guid: 79e3771474100d44e9324baa64e5b2f7,
-        type: 2}
-      propertyPath: chargeInfo.Array.data[2].vibrationAtReleasePower
-      value: 0.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 114158479602898618, guid: 79e3771474100d44e9324baa64e5b2f7,
-        type: 2}
-      propertyPath: chargeInfo.Array.data[0].projectileSpeed
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 114158479602898618, guid: 79e3771474100d44e9324baa64e5b2f7,
-        type: 2}
-      propertyPath: chargeInfo.Array.data[0].shooterKnockback
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 114158479602898618, guid: 79e3771474100d44e9324baa64e5b2f7,
-        type: 2}
-      propertyPath: chargeInfo.Array.data[1].projectileSpeed
-      value: 35
-      objectReference: {fileID: 0}
-    - target: {fileID: 114158479602898618, guid: 79e3771474100d44e9324baa64e5b2f7,
-        type: 2}
-      propertyPath: chargeInfo.Array.data[1].shooterKnockback
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 114158479602898618, guid: 79e3771474100d44e9324baa64e5b2f7,
-        type: 2}
-      propertyPath: chargeInfo.Array.data[2].projectileSpeed
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 114158479602898618, guid: 79e3771474100d44e9324baa64e5b2f7,
-        type: 2}
-      propertyPath: chargeInfo.Array.data[2].shooterKnockback
-      value: 40
-      objectReference: {fileID: 0}
-    - target: {fileID: 114158479602898618, guid: 79e3771474100d44e9324baa64e5b2f7,
-        type: 2}
-      propertyPath: chargeInfo.Array.data[0].cameraShakeDurationAtShot
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114158479602898618, guid: 79e3771474100d44e9324baa64e5b2f7,
-        type: 2}
-      propertyPath: chargeInfo.Array.data[1].cameraShakeDurationAtShot
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114158479602898618, guid: 79e3771474100d44e9324baa64e5b2f7,
-        type: 2}
-      propertyPath: chargeInfo.Array.data[2].cameraShakeDurationAtShot
-      value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 114158479602898618, guid: 79e3771474100d44e9324baa64e5b2f7,
-        type: 2}
-      propertyPath: chargeInfo.Array.data[2].walkSpeedReduction
-      value: 80
-      objectReference: {fileID: 0}
-    - target: {fileID: 114158479602898618, guid: 79e3771474100d44e9324baa64e5b2f7,
-        type: 2}
-      propertyPath: chargeInfo.Array.data[1].walkSpeedReduction
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 114158479602898618, guid: 79e3771474100d44e9324baa64e5b2f7,
-        type: 2}
-      propertyPath: chargeInfo.Array.data[0].walkSpeedReduction
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 114158479602898618, guid: 79e3771474100d44e9324baa64e5b2f7,
-        type: 2}
-      propertyPath: chargeInfo.Array.data[2].chargeTimer
-      value: 0.6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 79e3771474100d44e9324baa64e5b2f7, type: 2}

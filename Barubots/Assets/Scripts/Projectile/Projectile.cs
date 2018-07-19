@@ -7,7 +7,9 @@ public class Projectile : MonoBehaviour
 {
     private Rigidbody myRigidbody;
     private Collider myCollider;
-    public ParticleSystem particlePrefab;
+    public ParticleSystem onShootParticleSystem;
+    public ParticleSystem onHitParticleSystem;
+    public ParticleSystem afterFreezeParticleSystem;
     public float lifeTime = 1.0f;
     public float damage = 20f;
     public float knockBackMultiplier = 1.2f;
@@ -92,23 +94,26 @@ public class Projectile : MonoBehaviour
         myCollider.enabled = true;
         currentLifeTime = lifeTime;
         isActive = true;
-        particlePrefab.Play(true);
+        onShootParticleSystem.Play(true);
         myRigidbody.AddForce(force, ForceMode.Impulse);
     }
 
     void OnCollisionEnter(Collision col)
     {
+        if (hittedGameObjects.Contains(col.gameObject))
+        {
+            return;
+        }
         if (col.transform.tag == "Player")
         {
-            foreach(ContactPoint contact in col.contacts)
+            Debug.Log("On PLayer hit");
+            foreach (ContactPoint contact in col.contacts)
             {
                 Debug.Log(contact);
                 //transform.position.Set(contact.point.x, contact.point.y, contact.point.z);
             }
             DoKnockBack(col.collider);
-  
-
-            //Destroy(gameObject);
+            return;
         }
 
         if (col.gameObject.layer == LayerMask.NameToLayer("Ground"))
@@ -119,6 +124,10 @@ public class Projectile : MonoBehaviour
 
     private void DoKnockBack(Collider col)
     {
+        ParticleSystem particleSystem = Instantiate(onHitParticleSystem, transform.position, transform.rotation);
+        particleSystem.Play(true);
+        Destroy(particleSystem.gameObject, particleSystem.main.duration + particleSystem.main.startLifetime.constantMax);
+
         Robot robot = col.transform.GetComponent<Robot>();
         robot.GetHit(force.normalized, damage, force.magnitude * knockBackMultiplier, chargeForce);
         myRigidbody.angularVelocity = Vector3.zero;
@@ -136,7 +145,14 @@ public class Projectile : MonoBehaviour
 
     IEnumerator AddForce(float chargeForce, Vector3 force)
     {
-        yield return new WaitForSeconds(GameManager.Instance.MaxSlowMotionDuration * chargeForce);
+        float slowMoDuration = GameManager.Instance.MaxSlowMotionDuration * chargeForce;
+        ParticleSystem particleSystem = Instantiate(afterFreezeParticleSystem, transform.position, transform.rotation);
+        yield return new WaitForSeconds(slowMoDuration * 0.8f);
+
+        particleSystem.Play(true);
+        Destroy(particleSystem.gameObject, particleSystem.main.duration + particleSystem.main.startLifetime.constantMax);
+        yield return new WaitForSeconds(slowMoDuration * 0.2f);
+
         myRigidbody.AddForce(force, ForceMode.Force);
         myRigidbody.useGravity = true;
     }
